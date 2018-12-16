@@ -9,7 +9,7 @@
 
 <body>
   <div>
-  	<input id="slider" type="range" value="0" min="0" max="464" step="1" onchange="update(this.value);" />   
+  	<input id="slider" type="range" value="0" min="0" max="464" step="1" oninput="update(this.value);" />   
   	<input type="text" id="textInput" readonly="readonly" value="">
 	</div>
   
@@ -32,10 +32,12 @@
     
     function update(val){
       svg.selectAll("circle").remove();
+      svg.selectAll("text").remove();
       
     	d3.csv("data/north_mean_extent.csv", function(data) {
         
-      	updateTextInput(data[val].Month+"/"+data[val].Year)  
+        var chosen_date = data[val].Month+"/"+data[val].Year
+      	updateTextInput(chosen_date)  
     
     		g.append("circle")
         	.attr("r", data[val].mean_extent*5)
@@ -44,12 +46,40 @@
         	.style("fill","#99ccff")
         
         g.append("circle")
-        	.attr("r", data[0].mean_extent*5)
+        	.attr("r", data[val%12].mean_extent*5)
     			.attr("cx", 460)
     			.attr("cy", 100)
       		.style("fill","#99ccff")
         	.style("stroke","#0099ff")
         	.attr('fill-opacity', 0)
+        
+        //affichage de la légende
+      	g.append("circle")
+    			.attr("r", 10)
+      		.attr("cx", 750)
+      		.attr("cy", 200)
+      		.style("fill","#99ccff")
+    
+    		g.append("text")
+      		.text("Ice Extent in "+chosen_date)    	
+      		.attr("x", 775)
+      		.attr("y", 204)
+      		.style("font-size", 10)  
+    
+    		g.append("circle")
+    			.attr("r", 10)
+      		.attr("cx", 750)
+      		.attr("cy", 250)
+      		.style("fill","#99ccff")
+      		.style("stroke","#0099ff")
+      		.attr('fill-opacity', 0)
+    
+    		g.append("text")
+      		.text("Ice Extent in "+data[val%12].Month+"/"+data[val%12].Year)    	
+      		.attr("x", 775)
+      		.attr("y", 254)
+      		.style("font-size", 10)
+        
     	})
       
       d3.csv("data/south_mean_extent.csv", function(data) {
@@ -61,12 +91,14 @@
       		.style("fill","#99ccff")
         
         g.append("circle")
-        	.attr("r", data[0].mean_extent*5)
+        	.attr("r", data[val%12].mean_extent*5)
     			.attr("cx", 460)
     			.attr("cy", 300)      		
         	.attr('fill-opacity', 0)
         	.style("stroke","#0099ff")
     	})
+      
+      
       
       
     }      
