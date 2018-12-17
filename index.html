@@ -47,6 +47,14 @@
 		//Year,Month,mean_extent
     
     update(0)
+    //A = pi*r²
+    //r² = A/pi
+    //r = sqrt(A/pi)    
+    
+    function radius_from_area(area){      
+      console.log(Math.sqrt(area/Math.PI)*30)
+      return Math.sqrt(area/Math.PI)*30
+    }
     
     function update(val){
       svg.select("#north_extent").remove()
@@ -64,14 +72,14 @@
     
     		g.append("circle")
         	.attr("id", "north_extent")
-        	.attr("r", data[val].mean_extent*5)
+        	.attr("r", radius_from_area(data[val].mean_extent))
     			.attr("cx", 460)
     			.attr("cy", 100)
         	.style("fill","#99ccff")
-        
+
         g.append("circle")        	
         	.attr("id", "north_extent_ref")
-        	.attr("r", data[val%12].mean_extent*5)
+        	.attr("r", radius_from_area(data[val%12].mean_extent))
     			.attr("cx", 460)
     			.attr("cy", 100)
       		.style("fill","#99ccff")
@@ -108,14 +116,14 @@
     
     		g.append("circle")
         	.attr("id", "south_extent")
-        	.attr("r", data[val].mean_extent*5)
+        	.attr("r", radius_from_area(data[val].mean_extent))
     			.attr("cx", 460)
     			.attr("cy", 300)
       		.style("fill","#99ccff")
         
         g.append("circle")
         	.attr("id", "south_extent_ref")
-        	.attr("r", data[val%12].mean_extent*5)
+        	.attr("r", radius_from_area(data[val%12].mean_extent))
     			.attr("cx", 460)
     			.attr("cy", 300)      		
         	.attr('fill-opacity', 0)
