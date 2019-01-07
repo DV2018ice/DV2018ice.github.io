@@ -1,47 +1,31 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style> /* set the CSS */
-div.tooltip {
-	position: absolute;
-	text-align: center;
-	width: 60px;
-	height: 28px;
-	padding: 2px;
-	font: 12px sans-serif;
-	background: lightsteelblue;
-	border: 0px;
-	border-radius: 8px;
-	pointer-events: none;
-}
-
-#my_dataviz{
-	width: 400px;
-	height: :auto;
-}
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="css.css">
+		<script src="https://d3js.org/d3.v4.min.js"></script> <!-- Load d3.js -->
+		<script type="text/javascript"  src="./d3-scale-radial.js"></script> <!-- Function for radial charts -->
+		<!--<script src="d3-tip.js"></script>-->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
 
 
-#my_dataviz_line { 
-	stroke: steelblue;
-	stroke-width: 2;
-	fill: none;
-}
-</style>
-
-<script src="https://d3js.org/d3.v4.min.js"></script> <!-- Load d3.js -->
-<script type="text/javascript"  src="./d3-scale-radial.js"></script> <!-- Function for radial charts -->
-<!--<script src="d3-tip.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-
-
-<script type="text/javascript"  src="./functionUtils.js"></script> <!-- Function for radial charts -->
+		<script type="text/javascript"  src="./functionUtils.js"></script> <!-- Function for radial charts -->
+	</head> 
 
 <body>
-
+	<div>
+		<h1 align="center">Analyse de la fonte des glaces au pôle nord (gauche) et pôle sud (droite)</h1>
+	</div>
 	<div id="my_dataviz" >
-		<h1 align="center">Analyse de la fonte des glaces au pôle nord</h1>
 		<p>Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
 	</div>
-	<div id="my_dataviz_line"></div>
+	<div id="my_dataviz_south" >
+		<p>Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
+	</div>
+	<div id="my_dataviz_line">
+		
+	</div>
+
 	<script>
 
 		// Tooltip div
@@ -75,6 +59,13 @@ div.tooltip {
 		.append("g")
 		.attr("transform", "translate(" + width / 3 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause upper bars are longers
 
+		// append the svg object to the body of the page
+		var svg_south = d3.select("#my_dataviz_south")
+		.append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + width / 2 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause upper bars are longers
 
 		// Div de tooltip pour le cercle
 		var tooltip = d3.select("body").append("div")
@@ -133,7 +124,7 @@ div.tooltip {
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				getTemp(d.Year);
 
-                // Ajout des map de france
+				// Ajout des map de france
 				displayFrance(d)
 			})
 
@@ -144,27 +135,93 @@ div.tooltip {
 				d3.selectAll("#my_dataviz_line > *").remove(); 
 			});
 
-			var text = svg.selectAll("text")
-                .data(data)
-                .enter()
-                .append("text");
+			d3.csv("./data/south_mean_extent_year.csv", function(data) {
+				svg_south.append("g")
+				.selectAll("path")
+				.data(data)
+				.enter()
+				.append("path")
+				.attr("fill", function (i) { return colorScale (i.mean_extent);})
+				//.attr("text", "ok")
+				.attr("d", d3.arc()     // imagine your doing a part of a donut plot
+					.innerRadius(innerRadius)
+					.outerRadius(function(d) { return y(d['mean_extent']); })
+					.startAngle(function(d) { return x(d.Year); })
+					.endAngle(function(d) { return x(d.Year) + x.bandwidth(); })
+					.padAngle(0.1)
 
-            var textLabels = text
-            	.attr("x", function(d){ 
-            		if(d.Year=="1979" || d.Year=="1997") 
-            			return 0; 
-            		else 
-            			return 150;  })
-            	.attr("y", function(d){ 
-            		if(d.Year=="1979") 
-            			return -170; 
-            		else 
-            			return 170; 
-            	})
-                .text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
-                .attr("font-family", "sans-serif")
-                .attr("font-size", "20px")
-                .attr("fill", "black");
+					.padRadius(innerRadius)
+					)
+
+				// Au passage de la souris
+				.on("mouseover", function(d){
+					displayTooltip(this);
+
+					//divAnneeTest(d.Year);
+					divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
+
+					// Ajout des map de france
+					displayFrance(d)
+				})
+
+				// Lorsque l'on retire la souris
+				.on("mouseout", function(d){
+					hideTooltip(this);
+
+					d3.selectAll("#my_dataviz_line > *").remove(); 
+					
+					
+
+				});
+				var text2 = svg.selectAll("text2")
+					.data(data)
+					.enter()
+					.append("text2");
+
+				var textLabels2 = text2
+					.attr("x", function(d){ 
+						if(d.Year=="1979" || d.Year=="1997") 
+							return 0; 
+						else 
+							return 150;  })
+					.attr("y", function(d){ 
+						if(d.Year=="1979") 
+							return -170; 
+						else 
+							return 170; 
+					})
+					.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
+					.attr("font-family", "sans-serif")
+					.attr("font-size", "20px")
+					.attr("fill", "black");
+			})
+
+
+
+
+
+			var text = svg.selectAll("text")
+				.data(data)
+				.enter()
+				.append("text");
+
+			var textLabels = text
+				.attr("x", function(d){ 
+					if(d.Year=="1979" || d.Year=="1997") 
+						return 0; 
+					else 
+						return 150;  })
+				.attr("y", function(d){ 
+					if(d.Year=="1979") 
+						return -170; 
+					else 
+						return 170; 
+				})
+				.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
+				.attr("font-family", "sans-serif")
+				.attr("font-size", "20px")
+				.attr("fill", "black");
 		});
 	</script>
 </body>
+</html>
