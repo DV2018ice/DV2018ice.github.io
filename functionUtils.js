@@ -148,21 +148,35 @@ function getTemp(dateActuelle){
 function displayFrance(here){
 	var dat = 0;
 	dat = here.mean_extent;
-	var franceSQ = 8000;
-	var percentSQ = Math.round(dat*1000/franceSQ);
-
-	for(i=0; i<percentSQ;++i){
-		for(j=0;j<percentSQ;j++){
-
-
+	var franceSQ = 643801 ;
+	//Les extents sont en 10^6 km²
+	var percentSQ = Math.round(dat*1000000/franceSQ);
+	
+	console.log(percentSQ)
+	
+	q = percentSQ/4
+	r = percentSQ%4
+	
+	for(i=0; i<q-1;++i){
+		for(j=0;j<4;j++){
+		console.log(j)
 		var imgs = svg.append("svg:image")
 		    .attr("xlink:href", "data/fr.svg")
 		    .attr("id", "france")
-	        .attr("x",-50+i*50 )
-	        .attr("y",-50+j*50 )
-		    .attr("width", "50")
-		    .attr("height", "50");
+	        .attr("x",-60+i*25 )
+	        .attr("y",-55+j*25 )
+		    .attr("width", "25")
+		    .attr("height", "25");
 		}
+	}
+	for(j=0; j<r;++j){
+	var imgs = svg.append("svg:image")
+		.attr("xlink:href", "data/fr.svg")
+		.attr("id", "france")
+	    .attr("x",-60+i*25 )
+	    .attr("y",-55+j*25 )
+		.attr("width", "25")
+		.attr("height", "25");	
 	}
 }
 
