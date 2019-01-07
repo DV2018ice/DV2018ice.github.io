@@ -182,12 +182,11 @@ function displayFrance(here){
 	
 	for(i=0; i<q-1;++i){
 		for(j=0;j<4;j++){
-		console.log(j)
 		var imgs = svg.append("svg:image")
 		    .attr("xlink:href", "data/fr.svg")
 		    .attr("id", "france")
-	        .attr("x",-60+i*25 )
-	        .attr("y",-55+j*25 )
+	        .attr("y",-60+i*25 )
+	        .attr("x",-55+j*25 )
 		    .attr("width", "25")
 		    .attr("height", "25");
 		}
@@ -196,8 +195,8 @@ function displayFrance(here){
 	var imgs = svg.append("svg:image")
 		.attr("xlink:href", "data/fr.svg")
 		.attr("id", "france")
-	    .attr("x",-60+i*25 )
-	    .attr("y",-55+j*25 )
+	    .attr("y",-60+i*25 )
+	    .attr("x",-55+j*25 )
 		.attr("width", "25")
 		.attr("height", "25");	
 	}
