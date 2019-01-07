@@ -177,10 +177,12 @@ function displayFrance(here){
 	
 	console.log(percentSQ)
 	
-	q = percentSQ/4
-	r = percentSQ%4
+	var q = percentSQ/4
+	var r = percentSQ%4
+	var b = 0
+	if(r==0){b = 1}
 	
-	for(i=0; i<q-1;++i){
+	for(i=0; i<q-1+b;++i){
 		for(j=0;j<4;j++){
 		var imgs = svg.append("svg:image")
 		    .attr("xlink:href", "data/fr.svg")
