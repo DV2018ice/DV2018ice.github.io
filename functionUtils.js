@@ -72,11 +72,14 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.attr("class","axis y")
 			.call(yAxis);
 
+			
 	});
 }
 
 function getTemp(dateActuelle){
-	d3.csv("./data/ArcticTemp.csv")
+	var fichier = "./data/ArcticTemp.csv";
+
+	d3.csv(fichier)
 	.row(function(d) 
 			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
 		.get(function(error, rows) {
@@ -88,7 +91,7 @@ function getTemp(dateActuelle){
 			});
 
 			var y = d3.scaleLinear()
-			.domain([minTemp,maxTemp])
+			.domain([minTemp,5])
 			.range([heightLineChart,0]);
 
 			var x = d3.scaleLinear()
@@ -123,6 +126,22 @@ function getTemp(dateActuelle){
 			.attr("class","axis y")
 			.call(yAxis);
 
+			var offsets = document.getElementById('svgTemp').getBoundingClientRect();
+			var top = offsets.top;
+			var left = offsets.left;
+
+			/*var text_line = svgTemp.selectAll("text_line")
+				.data(rows)
+				.enter()
+				.append("text");
+
+			var textLabels = text_line
+				.attr("x", 150)
+				.attr("y", 170)
+				.attr("id", "textTemp")
+				.text("Evolution de la température")*/
+
+
 		});
 }
 
@@ -132,8 +151,6 @@ function displayFrance(here){
 	var franceSQ = 8000;
 	var percentSQ = Math.round(dat*1000/franceSQ);
 
-	cs(percentSQ)
-	cs(dat)
 	for(i=0; i<percentSQ;++i){
 		for(j=0;j<percentSQ;j++){
 

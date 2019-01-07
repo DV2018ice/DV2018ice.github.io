@@ -13,22 +13,41 @@ div.tooltip {
 
 #my_dataviz{
 	width: 50%;
-	height: :auto;
+	height: auto;
 	float: left;
 }
 #my_dataviz_south{
+	margin :auto;
 	width: 50%;
-	height: :auto;
+	height: auto;
 	float: right;
 }
 
 #my_dataviz_line { 
 	stroke: steelblue;
-	stroke-width: 2;
 	fill: none;
-	position: absolute;
-	bottom: 0;
 }
+
+#textTemp{
+	stroke: black;
+	font: 20px sans-serif;
+	font-family: Courier New;
+
+}
+
+#svg_line{
+	text-align: center;
+}
+
+#svg_north{
+	display: block;
+	margin: auto;
+}
+#svg_south{
+	display: block;
+	margin: auto;
+}
+
 
 h1{
 	color: navy;
@@ -40,4 +59,5 @@ h1{
 p{
 	font-family:URW Chancery L, cursive;
 	font-size: 20px;
+	text-align: center;
 }

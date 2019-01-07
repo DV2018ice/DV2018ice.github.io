@@ -17,13 +17,13 @@
 		<h1 align="center">Analyse de la fonte des glaces au pôle nord (gauche) et pôle sud (droite)</h1>
 	</div>
 	<div id="my_dataviz" >
-		<p>Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
+		<p id="text1">Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
 	</div>
 	<div id="my_dataviz_south" >
-		<p>Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
+		<p id="text2">Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
 	</div>
-	<div id="my_dataviz_line">
-		
+	<div id="svg_line">
+		<div id="my_dataviz_line">	</div>
 	</div>
 
 	<script>
@@ -40,10 +40,14 @@
 		var widthDivLineChart = 500;
 		var heightLineChart = 100;
 		var widthLineChart = 400;
-		
+
+		var widthDiv = document.getElementById("my_dataviz").clientWidth;
+
+		cs(document.getElementById("my_dataviz").clientWidth)
+		cs(document.getElementById("my_dataviz_south").clientWidth)
 		// set the dimensions and margins of the graph
-		var margin = {top: 10, right: 10, bottom: 10, left: 10},
-		width = 460 - margin.left - margin.right,
+		var margin = {top: 10, right: 200, bottom: 10, left: 10},
+		width = widthDiv,
 		height = 460 - margin.top - margin.bottom,
 		innerRadius = 80,
 		outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
@@ -54,16 +58,18 @@
 		// append the svg object to the body of the page
 		var svg = d3.select("#my_dataviz")
 		.append("svg")
-		.attr("width", width + margin.left + margin.right)
+		.attr("width", 600)
 		.attr("height", height + margin.top + margin.bottom)
+		.attr("id", "svg_north")
 		.append("g")
-		.attr("transform", "translate(" + width / 3 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause upper bars are longers
+		.attr("transform", "translate(" + width / 3 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause 
 
 		// append the svg object to the body of the page
 		var svg_south = d3.select("#my_dataviz_south")
 		.append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
+		.attr("id", "svg_south")
 		.append("g")
 		.attr("transform", "translate(" + width / 2 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause upper bars are longers
 
@@ -173,10 +179,10 @@
 					
 
 				});
-				var text2 = svg.selectAll("text2")
+				var text2 = svg_south.selectAll("text2")
 					.data(data)
 					.enter()
-					.append("text2");
+					.append("text");
 
 				var textLabels2 = text2
 					.attr("x", function(d){ 
