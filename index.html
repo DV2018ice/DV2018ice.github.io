@@ -130,6 +130,7 @@ div.tooltip {
 
 				//divAnneeTest(d.Year);
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
+				getTemp(d.Year);
 
                 // Ajout des map de france
 				displayFrance(d)
@@ -203,6 +204,16 @@ div.tooltip {
 			max = d3.max(rows, function(d) { return d.mean_extent; });
 			minDate = d3.min(rows, function(d) { return d.month; });
 			maxDate = d3.max(rows, function(d) { return d.month; });
+		});
+
+		d3.csv("./data/ArcticTemp.csv")
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+		.get(function(error, rows) {
+			minTemp = d3.min(rows, function(d){return d.temp})
+			maxTemp = d3.max(rows, function(d) { return d.temp; });
+			minDateTemp = d3.min(rows, function(d) { return d.month; });
+			maxDateTemp = d3.max(rows, function(d) { return d.month; });
 		});
 
 		var heightDivLineChart = 200;

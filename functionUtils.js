@@ -7,12 +7,22 @@ function init(){
 		minDate = d3.min(rows, function(d) { return d.month; });
 		maxDate = d3.max(rows, function(d) { return d.month; });
 	});
+
+	d3.csv("./data/ArcticTemp.csv")
+	.row(function(d) 
+		{ return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
+	.get(function(error, rows) {
+		max = d3.max(rows, function(d) { return d.mean_extent; });
+		minDate = d3.min(rows, function(d) { return d.month; });
+		maxDate = d3.max(rows, function(d) { return d.month; });
+	});
 }
 
 
 var cs = function(x){ console.log(x)};
 
 function divAnnee(dateActuelle, pageX, pageY){
+
 	d3.csv("./data/north_mean_extent.csv")
 		//.slice(1)
 		.row(function(d) 
@@ -25,6 +35,8 @@ function divAnnee(dateActuelle, pageX, pageY){
 					tableau.push(element)
 				}
 			});
+
+
 
 			var y = d3.scaleLinear()
 			.domain([0,max])
@@ -65,6 +77,59 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.call(yAxis);
 
 	});
+}
+
+function getTemp(dateActuelle){
+	d3.csv("./data/ArcticTemp.csv")
+	.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+		.get(function(error, rows) {
+			tableau = []
+			rows.forEach(function(element) {
+				if(element.year == dateActuelle){
+					tableau.push(element)
+				}
+			});
+
+			var y = d3.scaleLinear()
+			.domain([minTemp,maxTemp])
+			.range([heightLineChart,0]);
+
+			var x = d3.scaleLinear()
+			.domain([minDateTemp,maxDateTemp])
+			.range([0,widthLineChart]);
+
+
+			var yAxis = d3.axisLeft(y);
+
+			var xAxis = d3.axisBottom(x);
+
+			var line = d3.line()
+			.x(function(d){ return x(d.month); })
+			.y(function(d){ return y(d.temp); })
+			.curve(d3.curveCardinal);
+
+			
+			//d3.select("body").append("<div id='my_dataviz_line'></div>");
+			var svgTemp = d3.select("#my_dataviz_line").append("svg").attr("id","svgTemp").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
+			//var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+xNudge+","+yNudge+")");
+			var chartGroup = svgTemp.append("g").attr("class","chartGroup").attr("transform","translate("+(xNudge)+","+yNudge+")");
+
+			chartGroup.append("path")
+			.attr("class","line")
+			.attr("d",function(d){ return line(tableau); })
+
+
+			chartGroup.append("g")
+			.attr("class","axis x")
+			.attr("transform","translate(0,"+(heightLineChart)+")")
+			.call(xAxis);
+
+			chartGroup.append("g")
+			.attr("class","axis y")
+			.call(yAxis);
+
+		});
 }
 
 function displayFrance(here){
