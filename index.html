@@ -25,15 +25,6 @@ div.tooltip {
 	stroke-width: 2;
 	fill: none;
 }
-
-/*.axis path,
-.axis line {
-	fill: none;
-	stroke: grey;
-	stroke-width: 1;
-	shape-rendering: crispEdges;
-	}*/
-
 </style>
 
 <script src="https://d3js.org/d3.v4.min.js"></script> <!-- Load d3.js -->
@@ -49,11 +40,22 @@ div.tooltip {
 	<div id="my_dataviz" >
 		<h1 align="center">Analyse de la fonte des glaces au pôle nord</h1>
 		<p>Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
-	</div> <!-- Create a div where the graph will take place -->
-	<div id="my_dataviz_line">
-		<p>Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
 	</div>
+	<div id="my_dataviz_line"></div>
 	<script>
+
+		// Tooltip div
+		var parseDate = d3.timeParse("%m/%d/%Y");
+
+		var xNudge = 50;
+		var yNudge = 20;
+
+		init();
+
+		var heightDivLineChart = 200;
+		var widthDivLineChart = 500;
+		var heightLineChart = 100;
+		var widthLineChart = 400;
 		
 		// set the dimensions and margins of the graph
 		var margin = {top: 10, right: 10, bottom: 10, left: 10},
@@ -128,7 +130,6 @@ div.tooltip {
 			.on("mouseover", function(d){
 				displayTooltip(this);
 
-				//divAnneeTest(d.Year);
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				getTemp(d.Year);
 
@@ -141,11 +142,7 @@ div.tooltip {
 				hideTooltip(this);
 
 				d3.selectAll("#my_dataviz_line > *").remove(); 
-				
-				
-
 			});
-
 
 			var text = svg.selectAll("text")
                 .data(data)
@@ -168,59 +165,6 @@ div.tooltip {
                 .attr("font-family", "sans-serif")
                 .attr("font-size", "20px")
                 .attr("fill", "black");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		});
-
-
-		// Tooltip div
-		var parseDate = d3.timeParse("%m/%d/%Y");
-		var max = 0;
-
-		var xNudge = 50;
-		var yNudge = 20;
-
-		/*var minDate = new Date();
-		var maxDate = new Date();*/
-		var minDate = 2500;
-		var maxDate = 0;
-
-		d3.csv("./data/north_mean_extent.csv")
-		.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
-		.get(function(error, rows) {
-			max = d3.max(rows, function(d) { return d.mean_extent; });
-			minDate = d3.min(rows, function(d) { return d.month; });
-			maxDate = d3.max(rows, function(d) { return d.month; });
-		});
-
-		d3.csv("./data/ArcticTemp.csv")
-		.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
-		.get(function(error, rows) {
-			minTemp = d3.min(rows, function(d){return d.temp})
-			maxTemp = d3.max(rows, function(d) { return d.temp; });
-			minDateTemp = d3.min(rows, function(d) { return d.month; });
-			maxDateTemp = d3.max(rows, function(d) { return d.month; });
-		});
-
-		var heightDivLineChart = 200;
-		var widthDivLineChart = 500;
-		var heightLineChart = 100;
-		var widthLineChart = 400;
-		
-
 	</script>
 </body>
