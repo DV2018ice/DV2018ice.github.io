@@ -76,8 +76,31 @@ function divAnnee(dateActuelle, pageX, pageY){
 	});
 }
 
-function getTemp(dateActuelle){
-	var fichier = "./data/ArcticTemp.csv";
+function getTemp(dateActuelle, donnee){
+	if(donnee == "north"){
+		var fichier = "./data/ArcticTemp.csv";
+		d3.csv(fichier)
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+		.get(function(error, rows) {
+			minTemp = d3.min(rows, function(d) {return d.temp})
+			maxTemp = 5;
+			minDateTemp = d3.min(rows, function(d) { return d.month; });
+			maxDateTemp = d3.max(rows, function(d) { return d.month; });
+	});
+	}else if(donnee == "south"){
+		var fichier = "./data/AntarcticTemp_2.csv";
+		d3.csv(fichier)
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+		.get(function(error, rows) {
+			minTemp = d3.min(rows, function(d) {return d.temp})
+			maxTemp = d3.max(rows, function(d) { return d.temp; });
+			minDateTemp = d3.min(rows, function(d) { return d.month; });
+			maxDateTemp = d3.max(rows, function(d) { return d.month; });
+	});
+
+	}
 
 	d3.csv(fichier)
 	.row(function(d) 
@@ -91,7 +114,7 @@ function getTemp(dateActuelle){
 			});
 
 			var y = d3.scaleLinear()
-			.domain([minTemp,5])
+			.domain([minTemp,maxTemp])
 			.range([heightLineChart,0]);
 
 			var x = d3.scaleLinear()
