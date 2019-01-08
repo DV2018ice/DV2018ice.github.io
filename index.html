@@ -23,7 +23,16 @@
 		<p id="text2">Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
 	</div>
 	<div id="svg_line">
-		<div id="my_dataviz_line">	</div>
+		<div id="my_dataviz_line_extent">
+			<div id="title_h1">
+				<h1>extent</h1>
+			</div>
+		</div>
+		<div id="my_dataviz_line_temp">
+			<div id="title_h1">
+				<h1>temp</h1>
+			</div>
+		</div>
 	</div>
 
 	<script>
@@ -77,6 +86,7 @@
 		var tooltip = d3.select("body").append("div")
 		.attr("class", "tooltip")
 		.style("opacity", 0);
+
 
 		// Cercle julien ! 
 		/*var svg = d3.select("body").append("svg")
@@ -132,13 +142,24 @@
 
 				// Ajout des map de france
 				displayFrance(d)
+
+				document.getElementById("title_h1").style.display = 'block';
+
+
 			})
 
 			// Lorsque l'on retire la souris
 			.on("mouseout", function(d){
 				hideTooltip(this);
 
-				d3.selectAll("#my_dataviz_line > *").remove(); 
+				d3.selectAll("#my_dataviz_line_temp > svgTemp").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > svg").remove(); 
+
+				var x = document.getElementById("title_h1");
+				x.style.display=="none";
+				//document.getElementsByTagName('h1')[0].style.display = 'none';
+
+
 			});
 
 			d3.csv("./data/south_mean_extent_year.csv", function(data) {
@@ -174,7 +195,8 @@
 				.on("mouseout", function(d){
 					hideTooltip(this);
 
-					d3.selectAll("#my_dataviz_line > *").remove(); 
+					d3.selectAll("#my_dataviz_line_temp > svgTemp").remove(); 
+					d3.selectAll("#my_dataviz_line_extent > svg").remove(); 
 					
 					
 

@@ -23,9 +23,19 @@ div.tooltip {
 	float: right;
 }
 
-#my_dataviz_line { 
+#my_dataviz_line_temp { 
+	margin :auto;
 	stroke: steelblue;
 	fill: none;
+	width: 50%;
+	float: left;
+}
+#my_dataviz_line_extent { 
+	margin :auto;
+	stroke: steelblue;
+	fill: none;
+	width: 50%;
+	float: right;
 }
 
 #textTemp{
@@ -33,6 +43,9 @@ div.tooltip {
 	font: 20px sans-serif;
 	font-family: Courier New;
 
+}
+
+#title_h1{
 }
 
 #svg_line{

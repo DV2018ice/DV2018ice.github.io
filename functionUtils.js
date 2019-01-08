@@ -55,7 +55,7 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.curve(d3.curveCardinal);
 
 			
-			var svg = d3.select("#my_dataviz_line").append("svg").attr("id","svg").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
+			var svg = d3.select("#my_dataviz_line_extent").append("svg").attr("id","svg").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
 			var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+(xNudge)+","+yNudge+")");
 
 			chartGroup.append("path")
@@ -109,7 +109,7 @@ function getTemp(dateActuelle){
 			.curve(d3.curveCardinal);
 
 			
-			var svgTemp = d3.select("#my_dataviz_line").append("svg").attr("id","svgTemp").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
+			var svgTemp = d3.select("#my_dataviz_line_temp").append("svg").attr("id","svgTemp").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
 			var chartGroup = svgTemp.append("g").attr("class","chartGroup").attr("transform","translate("+(xNudge)+","+yNudge+")");
 
 			chartGroup.append("path")
