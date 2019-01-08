@@ -138,7 +138,7 @@
 				displayTooltip(this);
 
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-				getTemp(d.Year);
+				getTemp(d.Year, "north");
 
 				// Ajout des map de france
 				displayFrance(d)
@@ -186,7 +186,7 @@
 
 					//divAnneeTest(d.Year);
 					divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-
+					getTemp(d.Year, "south");
 					// Ajout des map de france
 					displayFrance(d)
 				})

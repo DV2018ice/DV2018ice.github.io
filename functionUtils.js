@@ -76,8 +76,31 @@ function divAnnee(dateActuelle, pageX, pageY){
 	});
 }
 
-function getTemp(dateActuelle){
-	var fichier = "./data/ArcticTemp.csv";
+function getTemp(dateActuelle, donnee){
+	if(donnee == "north"){
+		var fichier = "./data/ArcticTemp.csv";
+		d3.csv(fichier)
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+		.get(function(error, rows) {
+			minTemp = d3.min(rows, function(d) {return d.temp})
+			maxTemp = 5;
+			minDateTemp = d3.min(rows, function(d) { return d.month; });
+			maxDateTemp = d3.max(rows, function(d) { return d.month; });
+	});
+	}else if(donnee == "south"){
+		var fichier = "./data/AntarcticTemp_2.csv";
+		d3.csv(fichier)
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+		.get(function(error, rows) {
+			minTemp = d3.min(rows, function(d) {return d.temp})
+			maxTemp = d3.max(rows, function(d) { return d.temp; });
+			minDateTemp = d3.min(rows, function(d) { return d.month; });
+			maxDateTemp = d3.max(rows, function(d) { return d.month; });
+	});
+
+	}
 
 	d3.csv(fichier)
 	.row(function(d) 
@@ -91,7 +114,7 @@ function getTemp(dateActuelle){
 			});
 
 			var y = d3.scaleLinear()
-			.domain([minTemp,5])
+			.domain([minTemp,maxTemp])
 			.range([heightLineChart,0]);
 
 			var x = d3.scaleLinear()
@@ -148,21 +171,36 @@ function getTemp(dateActuelle){
 function displayFrance(here){
 	var dat = 0;
 	dat = here.mean_extent;
-	var franceSQ = 8000;
-	var percentSQ = Math.round(dat*1000/franceSQ);
-
-	for(i=0; i<percentSQ;++i){
-		for(j=0;j<percentSQ;j++){
-
-
+	var franceSQ = 643801 ;
+	//Les extents sont en 10^6 km²
+	var percentSQ = Math.round(dat*1000000/franceSQ);
+	
+	console.log(percentSQ)
+	
+	var q = percentSQ/4
+	var r = percentSQ%4
+	var b = 0
+	if(r==0){b = 1}
+	
+	for(i=0; i<q-1+b;++i){
+		for(j=0;j<4;j++){
 		var imgs = svg.append("svg:image")
 		    .attr("xlink:href", "data/fr.svg")
 		    .attr("id", "france")
-	        .attr("x",-50+i*50 )
-	        .attr("y",-50+j*50 )
-		    .attr("width", "50")
-		    .attr("height", "50");
+	        .attr("y",-60+i*25 )
+	        .attr("x",-55+j*25 )
+		    .attr("width", "25")
+		    .attr("height", "25");
 		}
+	}
+	for(j=0; j<r;++j){
+	var imgs = svg.append("svg:image")
+		.attr("xlink:href", "data/fr.svg")
+		.attr("id", "france")
+	    .attr("y",-60+i*25 )
+	    .attr("x",-55+j*25 )
+		.attr("width", "25")
+		.attr("height", "25");	
 	}
 }
 
