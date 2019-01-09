@@ -137,7 +137,7 @@ function getTemp(dateActuelle, donnee){
 
 			chartGroup.append("path")
 			.attr("class","line")
-			.attr("d",function(d){ return line(tableau); })
+			.attr("d",function(d){ return line(tableau); });
 
 
 			chartGroup.append("g")
@@ -202,6 +202,40 @@ function displayFrance(here){
 	}
 }
 
+function displayFrance_South(here){
+	var dat = 0;
+	dat = here.mean_extent;
+	var franceSQ = 643801 ;
+	//Les extents sont en 10^6 km²
+	var percentSQ = Math.round(dat*1000000/franceSQ);
+	
+	var q = percentSQ/4
+	var r = percentSQ%4
+	var b = 0
+	if(r==0){b = 1}
+	
+	for(i=0; i<q-1+b;++i){
+		for(j=0;j<4;j++){
+		var imgs_south = svg_south.append("svg_south:image")
+		    .attr("xlink:href", "data/fr.svg")
+		    .attr("id", "france_south")
+	        .attr("y",-60+i*25 )
+	        .attr("x",-55+j*25 )
+		    .attr("width", "25")
+		    .attr("height", "25");
+		}
+	}
+	for(j=0; j<r;++j){
+	var imgs_south = svg_south.append("svg_south:image")
+		.attr("xlink:href", "data/fr.svg")
+		.attr("id", "france_south")
+	    .attr("y",-60+i*25 )
+	    .attr("x",-55+j*25 )
+		.attr("width", "25")
+		.attr("height", "25");	
+	}
+}
+
 
 
 function displayTooltip(here){
@@ -218,9 +252,14 @@ function displayTooltip(here){
 	tooltip.html("Année : "+here.__data__.Year)
 		.style("left", (d3.event.pageX) + "px")
 		.style("top", (d3.event.pageY - 28) + "px");
+
+	document.getElementById("title_temp").style.display='block';
+	document.getElementById("title_extent").style.display='block';
 }
 
 function hideTooltip(here){
+	var color = here.attributes.fill;
+
 	d3.select(here)
 	.transition()
 	.duration(0)
@@ -233,6 +272,10 @@ function hideTooltip(here){
 	
 
 	svg.selectAll("#france").remove()
+	svg_south.selectAll("#france_south").remove()
+
+	document.getElementById("title_extent").style.display='none';
+	document.getElementById("title_temp").style.display='none';
 }
 
 function radius_from_area(area){      

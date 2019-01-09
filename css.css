@@ -87,3 +87,17 @@ p{
 	margin-left: 1px;
 	margin-right: 1px;
 }
+
+#title_extent{
+	/*float: left;
+	text-align: center;
+	width: 50%;*/
+	display:none;
+}
+
+#title_temp{
+	/*float: right;
+	text-align: center;
+	width: 50%;*/
+	display:none;
+}
