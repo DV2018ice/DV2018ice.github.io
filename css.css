@@ -15,12 +15,14 @@ div.tooltip {
 	width: 50%;
 	height: auto;
 	float: left;
+	/*padding-right:5px*/
 }
 #my_dataviz_south{
 	margin :auto;
 	width: 50%;
 	height: auto;
 	float: right;
+	/*padding-right:5px*/
 }
 
 #my_dataviz_line_temp { 
@@ -63,8 +65,11 @@ div.tooltip {
 
 
 h1{
+	border-width:2px;
+	border-style:dotted;
+	border-color:black;
 	color: navy;
-	margin-left: 20px;
+	margin-left: 0px;
 	font-style: oblique;
 	font-family:URW Chancery L, cursive;
 }
@@ -73,4 +78,12 @@ p{
 	font-family:URW Chancery L, cursive;
 	font-size: 20px;
 	text-align: center;
+}
+
+#text1, #text2{
+	border-width:2px;
+	border-style:dotted;
+	border-color:black;
+	margin-left: 1px;
+	margin-right: 1px;
 }

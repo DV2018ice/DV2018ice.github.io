@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="css.css">
-		<script src="https://d3js.org/d3.v4.min.js"></script> <!-- Load d3.js -->
-		<script type="text/javascript"  src="./d3-scale-radial.js"></script> <!-- Function for radial charts -->
-		<!--<script src="d3-tip.js"></script>-->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+<head>
+	<link rel="stylesheet" type="text/css" href="css.css">
+	<script src="https://d3js.org/d3.v4.min.js"></script> <!-- Load d3.js -->
+	<script type="text/javascript"  src="./d3-scale-radial.js"></script> <!-- Function for radial charts -->
+	<!--<script src="d3-tip.js"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
 
 
-		<script type="text/javascript"  src="./functionUtils.js"></script> <!-- Function for radial charts -->
-	</head> 
+	<script type="text/javascript"  src="./functionUtils.js"></script> <!-- Function for radial charts -->
+</head>
 
 <body>
 	<div>
@@ -25,12 +25,12 @@
 	<div id="svg_line">
 		<div id="my_dataviz_line_extent">
 			<div id="title_h1">
-				<h1>extent</h1>
+				<h2>extent</h2>
 			</div>
 		</div>
 		<div id="my_dataviz_line_temp">
 			<div id="title_h1">
-				<h1>temp</h1>
+				<h2>temp</h2>
 			</div>
 		</div>
 	</div>
@@ -61,6 +61,11 @@
 		innerRadius = 80,
 		outerRadius = Math.min(width, height) / 2;   // the outerRadius goes from the middle of the SVG area to the border
 
+		// Y scale
+		var y = d3.scaleRadial()
+		.range([innerRadius, outerRadius])   // Domain will be define later.
+		.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data
+
 		var snailBase = "#00000";
 		var snailTransi = "#11111";
 
@@ -87,6 +92,10 @@
 		.attr("class", "tooltip")
 		.style("opacity", 0);
 
+		var colorScale=d3.scaleLinear()
+		.domain([10,13])
+		.range(["white",  "#3399FF"]);
+
 
 		// Cercle julien ! 
 		/*var svg = d3.select("body").append("svg")
@@ -105,16 +114,6 @@
 			.align(0)                  // This does nothing ?
 			.domain( data.map(function(d) { return d.Year; }) ); // The domain of the X axis is the list of states.
 
-			// Y scale
-			var y = d3.scaleRadial()
-			.range([innerRadius, outerRadius])   // Domain will be define later.
-			.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data
-
-
-			var colorScale=d3.scaleLinear()
-			.domain([10,13])
-			.range(["white",  "#3399FF"]);
-
 			// Add bars
 			svg.append("g")
 			.selectAll("path")
@@ -129,6 +128,75 @@
 				.startAngle(function(d) { return x(d.Year); })
 				.endAngle(function(d) { return x(d.Year) + x.bandwidth(); })
 				.padAngle(0.1)
+				.padRadius(innerRadius)
+				)
+			.on("mouseover", function(d){
+				displayTooltip(this);
+				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
+				getTemp(d.Year, "north");
+				displayFrance(d)
+				document.getElementById("title_h1").style.display = 'block';
+			})
+			.on("mouseout", function(d){
+				hideTooltip(this);
+				d3.selectAll("#my_dataviz_line_temp > svgTemp").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > svg").remove(); 
+				var x = document.getElementById("title_h1");
+				x.style.display=="none";
+				//document.getElementsByTagName('h1')[0].style.display = 'none';
+			});
+
+			var text = svg.selectAll("text")
+			.data(data)
+			.enter()
+			.append("text");
+
+			var textLabels = text
+			.attr("x", function(d){ 
+				if(d.Year=="1979" || d.Year=="1997") 
+					return 0; 
+				else 
+					return 150;  })
+			.attr("y", function(d){ 
+				if(d.Year=="1979") 
+					return -170; 
+				else 
+					return 170; 
+			})
+			.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "20px")
+			.attr("fill", "black");
+		});
+
+
+
+		d3.csv("./data/south_mean_extent_year.csv", function(data) {
+
+						// X scale
+			var x = d3.scaleBand()
+			.range([0, 2 * Math.PI])    // X axis goes from 0 to 2pi = allaround the circle. If I stop at 1Pi, it will be around a half circle
+			.align(0)                  // This does nothing ?
+			.domain( data.map(function(d) { return d.Year; }) ); // The domain of the X axis is the list of states.
+
+			// Y scale
+			var y = d3.scaleRadial()
+			.range([innerRadius, outerRadius])   // Domain will be define later.
+			.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data
+
+			svg_south.append("g")
+			.selectAll("path")
+			.data(data)
+			.enter()
+			.append("path")
+			.attr("fill", function (i) { return colorScale (i.mean_extent);})
+				//.attr("text", "ok")
+			.attr("d", d3.arc()     // imagine your doing a part of a donut plot
+				.innerRadius(innerRadius)
+				.outerRadius(function(d) { return y(d['mean_extent']); })
+				.startAngle(function(d) { return x(d.Year); })
+				.endAngle(function(d) { return x(d.Year) + x.bandwidth(); })
+				.padAngle(0.1)
 
 				.padRadius(innerRadius)
 				)
@@ -137,15 +205,11 @@
 			.on("mouseover", function(d){
 				displayTooltip(this);
 
+				//divAnneeTest(d.Year);
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-				getTemp(d.Year, "north");
-
+				getTemp(d.Year, "south");
 				// Ajout des map de france
 				displayFrance(d)
-
-				document.getElementById("title_h1").style.display = 'block';
-
-
 			})
 
 			// Lorsque l'on retire la souris
@@ -154,102 +218,40 @@
 
 				d3.selectAll("#my_dataviz_line_temp > svgTemp").remove(); 
 				d3.selectAll("#my_dataviz_line_extent > svg").remove(); 
-
-				var x = document.getElementById("title_h1");
-				x.style.display=="none";
-				//document.getElementsByTagName('h1')[0].style.display = 'none';
-
+				
+				
 
 			});
+			var text2 = svg_south.selectAll("text2")
+			.data(data)
+			.enter()
+			.append("text");
 
-			d3.csv("./data/south_mean_extent_year.csv", function(data) {
-				svg_south.append("g")
-				.selectAll("path")
-				.data(data)
-				.enter()
-				.append("path")
-				.attr("fill", function (i) { return colorScale (i.mean_extent);})
-				//.attr("text", "ok")
-				.attr("d", d3.arc()     // imagine your doing a part of a donut plot
-					.innerRadius(innerRadius)
-					.outerRadius(function(d) { return y(d['mean_extent']); })
-					.startAngle(function(d) { return x(d.Year); })
-					.endAngle(function(d) { return x(d.Year) + x.bandwidth(); })
-					.padAngle(0.1)
-
-					.padRadius(innerRadius)
-					)
-
-				// Au passage de la souris
-				.on("mouseover", function(d){
-					displayTooltip(this);
-
-					//divAnneeTest(d.Year);
-					divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-					getTemp(d.Year, "south");
-					// Ajout des map de france
-					displayFrance(d)
-				})
-
-				// Lorsque l'on retire la souris
-				.on("mouseout", function(d){
-					hideTooltip(this);
-
-					d3.selectAll("#my_dataviz_line_temp > svgTemp").remove(); 
-					d3.selectAll("#my_dataviz_line_extent > svg").remove(); 
-					
-					
-
-				});
-				var text2 = svg_south.selectAll("text2")
-					.data(data)
-					.enter()
-					.append("text");
-
-				var textLabels2 = text2
-					.attr("x", function(d){ 
-						if(d.Year=="1979" || d.Year=="1997") 
-							return 0; 
-						else 
-							return 150;  })
-					.attr("y", function(d){ 
-						if(d.Year=="1979") 
-							return -170; 
-						else 
-							return 170; 
-					})
-					.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
-					.attr("font-family", "sans-serif")
-					.attr("font-size", "20px")
-					.attr("fill", "black");
+			var textLabels2 = text2
+			.attr("x", function(d){ 
+				if(d.Year=="1979" || d.Year=="1997") 
+					return 0; 
+				else 
+					return 150;  })
+			.attr("y", function(d){ 
+				if(d.Year=="1979") 
+					return -170; 
+				else 
+					return 170; 
 			})
+			.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "20px")
+			.attr("fill", "black");
 
-
-
-
-
-			var text = svg.selectAll("text")
-				.data(data)
-				.enter()
-				.append("text");
-
-			var textLabels = text
-				.attr("x", function(d){ 
-					if(d.Year=="1979" || d.Year=="1997") 
-						return 0; 
-					else 
-						return 150;  })
-				.attr("y", function(d){ 
-					if(d.Year=="1979") 
-						return -170; 
-					else 
-						return 170; 
-				})
-				.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
-				.attr("font-family", "sans-serif")
-				.attr("font-size", "20px")
-				.attr("fill", "black");
 		});
+
+
+
+
+
+
+		
 	</script>
 </body>
 </html>

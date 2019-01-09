@@ -175,8 +175,6 @@ function displayFrance(here){
 	//Les extents sont en 10^6 km²
 	var percentSQ = Math.round(dat*1000000/franceSQ);
 	
-	console.log(percentSQ)
-	
 	var q = percentSQ/4
 	var r = percentSQ%4
 	var b = 0
