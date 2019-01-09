@@ -13,7 +13,7 @@
 
 # Sources
 
-![un ti pingouin](https://intra-science.anaisequey.com/images/stories/observations/bio-polaire%20(18).jpg)
+![un ti pingouin](https://i.imgur.com/Ld270JL.jpg)
 
 *Daily Sea Ice Extent Data* récupérable à l'adresse suivante :
 https://www.kaggle.com/nsidcorg/daily-sea-ice-extent-data
