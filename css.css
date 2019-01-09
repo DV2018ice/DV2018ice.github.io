@@ -90,6 +90,7 @@ h1{
 	border-width:2px;
 	border-style:dotted;
 	border-color:azure;
+	border-radius: 10px;
 	color: azure;
 	margin-left: 0px;
 	font-family:Snow;
@@ -112,6 +113,7 @@ p{
 	border-width:2px;
 	border-style:dotted;
 	border-color:azure;
+	border-radius: 10px;
 	margin-left: 1px;
 	margin-right: 1px;
 }
