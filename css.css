@@ -23,11 +23,13 @@ div.tooltip {
 .axisx, .axisy{
 	fill: white;
 	stroke-width:1px;
+	font: 14px sans-serif;
 }
 
 .axisx text, .axisy text{
 	fill: white;
 	stroke-width:1px;
+	font: 16px sans-serif;
 }
 
 

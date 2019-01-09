@@ -60,17 +60,33 @@ function divAnnee(dateActuelle, pageX, pageY){
 
 			chartGroup.append("path")
 			.attr("class","line")
+
 			.attr("d",function(d){ return line(tableau); })
 
 
 			chartGroup.append("g")
 			.attr("class","axisx")
+			.style("font", "14px times")
 			.attr("transform","translate(0,"+(heightLineChart)+")")
-			.call(xAxis);
+			.call(xAxis)
+			.append("text")
+				//.attr("transform", "rotate(-90)")
+				.attr("y", -120)
+				.attr("x", 100)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("taille glace (sq²)");
 
 			chartGroup.append("g")
 			.attr("class","axisy")
-			.call(yAxis);
+			.call(yAxis)
+			.append("text")
+				//.attr("transform", "rotate(-90)")
+				.attr("y", 130)
+				.attr("x", 250)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("mois de l'année");
 
 			
 	});
@@ -143,11 +159,25 @@ function getTemp(dateActuelle, donnee){
 			chartGroup.append("g")
 			.attr("class","axisx")
 			.attr("transform","translate(0,"+(heightLineChart)+")")
-			.call(xAxis);
+			.call(xAxis)
+			.append("text")
+				//.attr("transform", "rotate(-90)")
+				.attr("y", -120)
+				.attr("x", 100)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("Temperature (ºc)");;
 
 			chartGroup.append("g")
 			.attr("class","axisy")
-			.call(yAxis);
+			.call(yAxis)
+			.append("text")
+				//.attr("transform", "rotate(-90)")
+				.attr("y", 130)
+				.attr("x", 250)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("mois de l'année");
 
 			var offsets = document.getElementById('svgTemp').getBoundingClientRect();
 			var top = offsets.top;
@@ -183,7 +213,7 @@ function displayFrance(here){
 	for(i=0; i<q-1+b;++i){
 		for(j=0;j<4;j++){
 		var imgs = svg.append("svg:image")
-		    .attr("xlink:href", "data/fr.svg")
+		    .attr("xlink:href", "data/frbleue.svg")
 		    .attr("id", "france")
 	        .attr("y",-60+i*25 )
 	        .attr("x",-55+j*25 )
@@ -193,7 +223,7 @@ function displayFrance(here){
 	}
 	for(j=0; j<r;++j){
 	var imgs = svg.append("svg:image")
-		.attr("xlink:href", "data/fr.svg")
+		.attr("xlink:href", "data/frbleue.svg")
 		.attr("id", "france")
 	    .attr("y",-60+i*25 )
 	    .attr("x",-55+j*25 )
@@ -217,7 +247,7 @@ function displayFrance_South(here){
 	for(i=0; i<q-1+b;++i){
 		for(j=0;j<4;j++){
 		var imgs_south = svg_south.append("svg_south:image")
-		    .attr("xlink:href", "data/fr.svg")
+		    .attr("xlink:href", "data/frbleue.svg")
 		    .attr("id", "france_south")
 	        .attr("y",-60+i*25 )
 	        .attr("x",-55+j*25 )
@@ -227,7 +257,7 @@ function displayFrance_South(here){
 	}
 	for(j=0; j<r;++j){
 	var imgs_south = svg_south.append("svg_south:image")
-		.attr("xlink:href", "data/fr.svg")
+		.attr("xlink:href", "data/frbleue.svg")
 		.attr("id", "france_south")
 	    .attr("y",-60+i*25 )
 	    .attr("x",-55+j*25 )
