@@ -64,12 +64,12 @@ function divAnnee(dateActuelle, pageX, pageY){
 
 
 			chartGroup.append("g")
-			.attr("class","axis x")
+			.attr("class","axisx")
 			.attr("transform","translate(0,"+(heightLineChart)+")")
 			.call(xAxis);
 
 			chartGroup.append("g")
-			.attr("class","axis y")
+			.attr("class","axisy")
 			.call(yAxis);
 
 			
@@ -141,12 +141,12 @@ function getTemp(dateActuelle, donnee){
 
 
 			chartGroup.append("g")
-			.attr("class","axis x")
+			.attr("class","axisx")
 			.attr("transform","translate(0,"+(heightLineChart)+")")
 			.call(xAxis);
 
 			chartGroup.append("g")
-			.attr("class","axis y")
+			.attr("class","axisy")
 			.call(yAxis);
 
 			var offsets = document.getElementById('svgTemp').getBoundingClientRect();

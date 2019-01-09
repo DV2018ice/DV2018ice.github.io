@@ -14,25 +14,25 @@
 
 <body>
 	<div>
-		<h1 align="center">Analyse de la fonte des glaces au pôle nord (gauche) et pôle sud (droite)</h1>
+		<h1 align="center">Evolution de la glace en fonction des années, de 1979 à 2016</h1>
 	</div>
 	<div id="my_dataviz" >
-		<p id="text1">Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
+		<p id="text1">Pôle Nord</p>
 	</div>
 	<div id="my_dataviz_south" >
-		<p id="text2">Escargot représentant l'évolution de la glace en fonction des années, de 1979 à 2016</p>
+		<p id="text2">Pôle Sud</p>
 	</div>
 	<div id="svg_line">
 
 		<div id="my_dataviz_line_extent">
 			<div id="title_extent">
-				<h2>extent</h2>
+				<h2>Extention</h2>
 			</div>			
 		</div>
 
 		<div id="my_dataviz_line_temp">
 			<div id="title_temp">
-				<h2>temp</h2>
+				<h2>Température</h2>
 			</div>			
 		</div>
 	</div>
@@ -164,14 +164,14 @@
 					return 150;  })
 			.attr("y", function(d){ 
 				if(d.Year=="1979") 
-					return -170; 
+					return -200; 
 				else 
-					return 170; 
+					return 200; 
 			})
 			.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
 			.attr("font-family", "sans-serif")
 			.attr("font-size", "20px")
-			.attr("fill", "black");
+			.attr("fill", "white");
 		});
 
 
@@ -242,14 +242,14 @@
 					return 150;  })
 			.attr("y", function(d){ 
 				if(d.Year=="1979") 
-					return -170; 
+					return -200; 
 				else 
-					return 170; 
+					return 200; 
 			})
 			.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
 			.attr("font-family", "sans-serif")
 			.attr("font-size", "20px")
-			.attr("fill", "black");
+			.attr("fill", "white");
 
 		});
 
