@@ -75,7 +75,7 @@ function divAnnee(dateActuelle, pageX, pageY){
 				.attr("x", 100)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
-				.text("taille glace (sq²)");
+				.text("taille glace (sqm²)");
 
 			chartGroup.append("g")
 			.attr("class","axisy")

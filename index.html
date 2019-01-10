@@ -26,7 +26,7 @@
 
 		<div id="my_dataviz_line_extent">
 			<div id="title_extent">
-				<h2>Extention</h2>
+				<h2>Extension</h2>
 			</div>			
 		</div>
 
@@ -78,13 +78,13 @@
 		.attr("height", height + margin.top + margin.bottom)
 		.attr("id", "svg_north")
 		.append("g")
-		.attr("transform", "translate(" + width / 2 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause 
+		.attr("transform", "translate(" + width / 3 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause 
 
 		// append the svg object to the body of the page
 		var svg_south = d3.select("#my_dataviz_south")
 		.append("svg")
-		//.attr("width", width + margin.left + margin.right)
-		.attr("width", 600)
+		.attr("width", width + margin.left + margin.right)
+		//.attr("width", 600)
 		.attr("height", height + margin.top + margin.bottom)
 		.attr("id", "svg_south")
 		.append("g")
