@@ -5,6 +5,7 @@
 
 body{
 	background-color: navy;
+	overflow-y: scroll;
 }
 
 div.tooltip {
