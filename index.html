@@ -13,27 +13,29 @@
 </head>
 
 <body>
-	<div>
+	<div id="titre">
 		<h1 align="center">Etendue annuelle des calottes glaciaires, de 1979 à 2016</h1>
 	</div>
-	<div id="my_dataviz" >
-		<p id="text1">Pôle Nord</p>
-	</div>
-	<div id="my_dataviz_south" >
-		<p id="text2">Pôle Sud</p>
-	</div>
-	<div id="svg_line">
-
-		<div id="my_dataviz_line_extent">
-			<div id="title_extent">
-				<h2>Extension</h2>
-			</div>			
+	<div id="corps">
+		<div id="my_dataviz" >
+			<p id="text1">Pôle Nord</p>
 		</div>
+		<div id="my_dataviz_south" >
+			<p id="text2">Pôle Sud</p>
+		</div>
+		<div id="svg_line">
 
-		<div id="my_dataviz_line_temp">
-			<div id="title_temp">
-				<h2>Température</h2>
-			</div>			
+			<div id="my_dataviz_line_extent">
+				<div id="title_extent">
+					<h2>Extension</h2>
+				</div>			
+			</div>
+
+			<div id="my_dataviz_line_temp">
+				<div id="title_temp">
+					<h2>Température</h2>
+				</div>			
+			</div>
 		</div>
 	</div>
 
@@ -74,16 +76,18 @@
 		// append the svg object to the body of the page
 		var svg = d3.select("#my_dataviz")
 		.append("svg")
-		.attr("width", 600)
+		//.attr("width", 600)
+		.attr("width", width)
 		.attr("height", height + margin.top + margin.bottom)
 		.attr("id", "svg_north")
 		.append("g")
-		.attr("transform", "translate(" + width / 3 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause 
+		.attr("transform", "translate(" + width / 2 + "," + ( height/2 )+ ")"); // Add 100 on Y translation, cause 
 
 		// append the svg object to the body of the page
 		var svg_south = d3.select("#my_dataviz_south")
 		.append("svg")
-		.attr("width", width + margin.left + margin.right)
+		//.attr("width", width + margin.left + margin.right)
+		.attr("width", width)
 		//.attr("width", 600)
 		.attr("height", height + margin.top + margin.bottom)
 		.attr("id", "svg_south")
@@ -105,9 +109,27 @@
 		.attr("width", 1000)
 		.attr("height", 500)*/
 
-		var g = svg.append("g")
+		var g = svg.append("g");
 
-
+		dataSudYear = []
+		dataNordYear = []
+		function datanorth(dataSudYear,dataNordYear){
+			d3.csv("./data/north_mean_extent_year.csv", function(data) {
+				data.forEach(function(element) {
+					dataSudYear.push(element)
+				});
+			})
+			d3.csv("./data/north_mean_extent_year.csv", function(data) {
+				data.forEach(function(element) {
+					dataNordYear.push(element)
+				});
+			})
+			
+		}
+		
+		datanorth(dataSudYear,dataNordYear);
+		cs(dataSudYear);cs(dataNordYear);
+		
 
 		d3.csv("./data/north_mean_extent_year.csv", function(data) {
 
