@@ -2,50 +2,120 @@
 <meta charset="utf-8">
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css.css">
+	<title>DataViz groupe 0</title>
+
+
+	<!-- Font style -->
+	<link href="https://fonts.googleapis.com/css?family=Muli:600" rel="stylesheet"> 
+
+	<!-- BOOTSTRAP INCLUDES CSS  -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	<!-- MY CSS -->
+	<link rel="stylesheet" type="text/css" href="./css/css.css">
+
+	<!-- D3 JS V4 -->
 	<script src="https://d3js.org/d3.v4.min.js"></script> <!-- Load d3.js -->
-	<script type="text/javascript"  src="./d3-scale-radial.js"></script> <!-- Function for radial charts -->
-	<!--<script src="d3-tip.js"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+	<!-- MY JS -->
+	<script type="text/javascript"  src="./js/d3-scale-radial.js"></script> <!-- Function for radial charts -->
+	<script type="text/javascript"  src="./js/functionUtils.js"></script> <!-- Function for radial charts -->
 
 
-	<script type="text/javascript"  src="./functionUtils.js"></script> <!-- Function for radial charts -->
+
+	
+	<style>
+
+
+</style>
 </head>
 
 <body>
-	<div id="titre">
+
+	<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Bar de navigation</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Présentation du projet<span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="#section2">Visualisation</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="#section2">Déduction</a>
+				</li>
+			</ul>
+
+		</div>
+	</nav>
+
+<div id="section1" class="container-fluid">
+	<h1>Section 1</h1>
+	<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+	<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+</div>
+<div class="container-fluid" id="section2">
+
+	<div class="row" id="title" align="center">
 		<h1 align="center">Etendue annuelle des calottes glaciaires, de 1979 à 2016</h1>
 	</div>
-	<div id="corps">
-		<div id="my_dataviz" >
-			<p id="text1">Pôle Nord</p>
-		</div>
-		<div id="my_dataviz_south" >
-			<p id="text2">Pôle Sud</p>
-		</div>
-		<div id="svg_line">
 
-			<div id="my_dataviz_line_extent">
-				<div id="title_extent">
-					<h2>Extension</h2>
-				</div>			
-			</div>
+	<div class="row" id="escargots">
 
-			<div id="my_dataviz_line_temp">
-				<div id="title_temp">
-					<h2>Température</h2>
-				</div>			
-			</div>
+		<!-- PADDING -->
+		<div class="col-1"></div>
+
+		<!-- COLONNE NORD -->
+		<div class="col-4" id="my_dataviz">
+			<h2>Pôle Nord</h2>
 		</div>
+
+		<!-- PADDING -->
+		<div class="col-2"></div>
+
+		<!-- COLONNE SUD -->
+		<div class="col-4" id="my_dataviz_south">
+			<h2>Pôle Sud</h2>
+		</div>
+
+		<!-- PADDING -->
+		<div class="col-1"></div>
 	</div>
 
-	<script>
+	<div class="row" id="graphiques">
 
-		// Tooltip div
-		var parseDate = d3.timeParse("%m/%d/%Y");
+		<!-- PADDING -->
+		<div class="col-1"></div>
 
-		var xNudge = 50;
-		var yNudge = 20;
+		<!-- COLONNE NORD -->
+		<div class="col-4" id="my_dataviz_line_extent">
+			<h2>Extension</h2>
+		</div>
+
+		<!-- PADDING -->
+		<div class="col-2"></div>
+
+		<!-- COLONNE SUD -->
+		<div class="col-4" id="my_dataviz_line_temp">
+			<h2>Température</h2>
+		</div>
+
+		<!-- PADDING -->
+		<div class="col-1"></div>
+	</div>
+</div>
+<div id="section3" class="container-fluid">
+	<h1>Section 1</h1>
+	<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+	<p>Try to scroll this section and look at the navigation bar while scrolling! Try to scroll this section and look at the navigation bar while scrolling!</p>
+</div>
+
+
+<script>
+
 
 		init();
 
@@ -68,7 +138,7 @@
 		// Y scale
 		var y = d3.scaleRadial()
 		.range([innerRadius, outerRadius])   // Domain will be define later.
-		.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data
+		.domain([6, 13]); // Domain of Y is from 0 to the max seen in the data
 
 		var snailBase = "#00000";
 		var snailTransi = "#11111";
@@ -103,33 +173,12 @@
 		.domain([10,13])
 		.range(["white",  "#3399FF"]);
 
-
-		// Cercle julien ! 
-		/*var svg = d3.select("body").append("svg")
-		.attr("width", 1000)
-		.attr("height", 500)*/
-
 		var g = svg.append("g");
 
-		dataSudYear = []
-		dataNordYear = []
-		function datanorth(dataSudYear,dataNordYear){
-			d3.csv("./data/north_mean_extent_year.csv", function(data) {
-				data.forEach(function(element) {
-					dataSudYear.push(element)
-				});
-			})
-			d3.csv("./data/north_mean_extent_year.csv", function(data) {
-				data.forEach(function(element) {
-					dataNordYear.push(element)
-				});
-			})
-			
-		}
-		
-		datanorth(dataSudYear,dataNordYear);
-		cs(dataSudYear);cs(dataNordYear);
-		
+		var dataSudYear = []
+		var dataNordYear = []
+		var dataNordYearT = []
+
 
 		d3.csv("./data/north_mean_extent_year.csv", function(data) {
 
@@ -160,8 +209,8 @@
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				getTemp(d.Year, "north");
 				displayFrance(d)
-				//displayFrance_South(d)
-				document.getElementById("title_extent").style.display='block';
+				// displayFrance_South(d)
+				// document.getElementById("title_extent").style.display='block';
 			})
 			.on("mouseout", function(d){
 				hideTooltip(this);
@@ -169,7 +218,7 @@
 				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
 
 				//var x = document.getElementById("title_extent");
-				document.getElementById("title_extent").style.display='none';
+				//document.getElementById("title_extent").style.display='none';
 				//hide(x)
 				//document.getElementsByTagName('h1')[0].style.display = 'none';
 			});
@@ -208,9 +257,9 @@
 			.domain( data.map(function(d) { return d.Year; }) ); // The domain of the X axis is the list of states.
 
 			// Y scale
-			var y = d3.scaleRadial()
+			/*var y = d3.scaleRadial()
 			.range([innerRadius, outerRadius])   // Domain will be define later.
-			.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data
+			.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data*/
 
 			svg_south.append("g")
 			.selectAll("path")
@@ -245,12 +294,8 @@
 			// Lorsque l'on retire la souris
 			.on("mouseout", function(d){
 				hideTooltip(this);
-
 				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
 				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
-								
-				
-
 			});
 			var text2 = svg_south.selectAll("text2")
 			.data(data)
@@ -283,5 +328,6 @@
 
 		
 	</script>
+
 </body>
 </html>

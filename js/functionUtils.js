@@ -17,10 +17,12 @@ function init(){
 		minDateTemp = d3.min(rows, function(d) { return d.month; });
 		maxDateTemp = d3.max(rows, function(d) { return d.month; });
 	});
-}
+};
 
 
 var cs = function(x){ console.log(x)};
+
+
 
 function divAnnee(dateActuelle, pageX, pageY){
 
@@ -36,13 +38,19 @@ function divAnnee(dateActuelle, pageX, pageY){
 				}
 			});
 
+			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
+			var gheight = gwidth / 3;
+
+			cs(gwidth);cs(gheight);
+
 			var y = d3.scaleLinear()
-			.domain([0,max])
-			.range([heightLineChart,0]);
+			.domain([17,0])
+			.range([0,gheight]);
 
 			var x = d3.scaleLinear()
-			.domain([minDate,maxDate])
-			.range([0,widthLineChart]);
+			.domain([0,12])
+			//.domain([minDate,maxDate])
+			.range([0,gwidth-gwidth/5]);
 
 
 			var yAxis = d3.axisLeft(y);
@@ -54,36 +62,43 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.y(function(d){ return y(d.mean_extent); })
 			.curve(d3.curveCardinal);
 
-			
-			var svg = d3.select("#my_dataviz_line_extent").append("svg").attr("id","svg").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
-			var chartGroup = svg.append("g").attr("class","chartGroup").attr("transform","translate("+(xNudge)+","+yNudge+")");
+
+			var svg = d3.select("#my_dataviz_line_extent").append("svg")
+			.attr("id","svg")
+			.attr("height",gheight+30).attr("width",gwidth);
+
+			var chartGroup = svg.append("g").attr("class","chartGroup")
+			.attr("id","svg")
+			.attr("height",gheight-gheight/2).attr("width",gwidth-gwidth/3)
+			.attr("transform","translate("+(30)+","+(+10)+")");
 
 			chartGroup.append("path")
 			.attr("class","line")
-
 			.attr("d",function(d){ return line(tableau); })
 
 
 			chartGroup.append("g")
 			.attr("class","axisx")
 			.style("font", "14px times")
-			.attr("transform","translate(0,"+(heightLineChart)+")")
+			.attr("transform","translate("+(0)+","+(gheight)+")")
 			.call(xAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", -120)
-				.attr("x", 100)
-				.attr("dy", ".71em")
+				.attr("y", 30)
+				.attr("x", 0)
+				//.attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("taille glace (m²)");
 
 			chartGroup.append("g")
 			.attr("class","axisy")
+			.attr("transform","translate("+(0)+","+(0)+")")
+			//.attr("transform","translate("+(0)+","+(gheight)+")")
 			.call(yAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", 130)
-				.attr("x", 250)
+				.attr("y", 0)
+				.attr("x", 0)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("mois de l'année");
@@ -129,13 +144,18 @@ function getTemp(dateActuelle, donnee){
 				}
 			});
 
+			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
+			var gheight = gwidth / 3;
+
+			cs(gwidth);cs(gheight);
+
 			var y = d3.scaleLinear()
 			.domain([minTemp,maxTemp])
-			.range([heightLineChart,0]);
+			.range([gheight,0]);
 
 			var x = d3.scaleLinear()
 			.domain([minDateTemp,maxDateTemp])
-			.range([0,widthLineChart]);
+			.range([0,gwidth]);
 
 
 			var yAxis = d3.axisLeft(y);
@@ -147,9 +167,17 @@ function getTemp(dateActuelle, donnee){
 			.y(function(d){ return y(d.temp); })
 			.curve(d3.curveCardinal);
 
-			
-			var svgTemp = d3.select("#my_dataviz_line_temp").append("svg").attr("id","svgTemp").attr("height",heightDivLineChart).attr("width",widthDivLineChart);
-			var chartGroup = svgTemp.append("g").attr("class","chartGroup").attr("transform","translate("+(xNudge)+","+yNudge+")");
+			var svgTemp = d3.select("#my_dataviz_line_temp").append("svg")
+			.attr("id","svgTemp")
+			.attr("height",gheight+30).attr("width",gwidth);
+
+			var chartGroup = svgTemp.append("g").attr("class","chartGroup")
+			.attr("id","svgTemp")
+			.attr("height",gheight-gheight/2).attr("width",gwidth-gwidth/3)
+			.attr("transform","translate("+(30)+","+(+10)+")");
+
+			// var chartGroup = svgTemp.append("g").attr("class","chartGroup");
+
 
 			chartGroup.append("path")
 			.attr("class","line")
@@ -158,42 +186,27 @@ function getTemp(dateActuelle, donnee){
 
 			chartGroup.append("g")
 			.attr("class","axisx")
-			.attr("transform","translate(0,"+(heightLineChart)+")")
+			.attr("transform","translate("+(0)+","+(gheight)+")")
 			.call(xAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", -120)
-				.attr("x", 100)
-				.attr("dy", ".71em")
+				.attr("y", 30)
+				.attr("x", 0)
+				// .attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("Temperature (ºc)");;
 
 			chartGroup.append("g")
 			.attr("class","axisy")
+			.attr("transform","translate("+(0)+","+(0)+")")
 			.call(yAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", 130)
-				.attr("x", 250)
-				.attr("dy", ".71em")
+				.attr("y", 0)
+				.attr("x", 0)
+				// .attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("mois de l'année");
-
-			var offsets = document.getElementById('svgTemp').getBoundingClientRect();
-			var top = offsets.top;
-			var left = offsets.left;
-
-			/*var text_line = svgTemp.selectAll("text_line")
-				.data(rows)
-				.enter()
-				.append("text");
-
-			var textLabels = text_line
-				.attr("x", 150)
-				.attr("y", 170)
-				.attr("id", "textTemp")
-				.text("Evolution de la température")*/
-
 
 		});
 }
@@ -283,8 +296,8 @@ function displayTooltip(here){
 		.style("left", (d3.event.pageX) + "px")
 		.style("top", (d3.event.pageY - 28) + "px");
 
-	document.getElementById("title_temp").style.display='block';
-	document.getElementById("title_extent").style.display='block';
+	// document.getElementById("title_temp").style.display='block';
+	// document.getElementById("title_extent").style.display='block';
 }
 
 function hideTooltip(here){
@@ -304,8 +317,8 @@ function hideTooltip(here){
 	svg.selectAll("#france").remove()
 	svg_south.selectAll("#france_south").remove()
 
-	document.getElementById("title_extent").style.display='none';
-	document.getElementById("title_temp").style.display='none';
+	// document.getElementById("title_extent").style.display='none';
+	// document.getElementById("title_temp").style.display='none';
 }
 
 function radius_from_area(area){      
