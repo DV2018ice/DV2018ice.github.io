@@ -9,11 +9,13 @@
 
 # Description du projet
 
+Nous proposons une visualisation de la variation anuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar chart circulaires qui représentent l'étendue anuelle pour chaque calotte. Lorsque l'on sélectionne une des barres(donc une des année) on obtient 4 nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les 2 pôles.
 
 
 # Sources
 
-![un ti pingouin](https://i.imgur.com/Ld270JL.jpg)
+Document de cadrage du projet récupèrable à l'adresse suivante :
+https://docs.google.com/document/d/1y9GVjgDm92eZbXWagMJ42XGKJC_3DHIKRjNLFezMbRQ/edit#heading=h.h609stdapcov
 
 *Daily Sea Ice Extent Data* récupérable à l'adresse suivante :
 https://www.kaggle.com/nsidcorg/daily-sea-ice-extent-data
