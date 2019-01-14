@@ -6,10 +6,12 @@ body{
 	background-color: rgb(12,42,72);
 	position: relative; 
 }
-
-	#section1 {padding-top:50px;height:auto;color: #fff; background-color:rgb(12,42,72);}
-	#section2 {padding-top:50px;height:auto;color: #fff; background-color: rgb(50,42,72);}
-	#section3 {padding-top:50px;height:auto;color: #fff; background-color: #ff9800;}
+/*rgb(12,42,72)
+https://color.adobe.com/fr/1dcNVE2lmHkq9pDb-color-theme-11817449/edit/?copy=true&base=2&rule=Custom&selected=1&name=Copie%20de%201dcNVE2lmHkq9pDb&mode=rgb&rgbvalues=0.00392156862745098,0,0.14901960784313725,0.0392156862745098,0.23137254901960785,0.3607843137254902,0.08627450980392157,0.41568627450980394,0.5607843137254902,0.37254901960784315,0.6431372549019608,0.6039215686274509,0.7137254901960784,0.8509803921568627,0.7607843137254902&swatchOrder=0,1,2,3,4
+*/
+#section1 {padding-top:50px;height:auto;color: #fff; background-color:rgb(22,106,143);}
+#section2 {padding-top:50px;height:auto;color: #fff; background-color: rgb(10,59,92);}
+#section3 {padding-top:50px;height:auto;color: #fff; background-color: rgb(1,0,38);}
 
 div.tooltip {
 	position: absolute;
@@ -57,6 +59,7 @@ h1{
 	margin-left: 0px;
 	font-size: 40px;
     font-family: 'Muli', sans-serif;
+    text-align: center;
 }
 
 h2{
@@ -65,4 +68,3 @@ h2{
     font-family: 'Muli', sans-serif;
 	text-align: center;
 }
-
