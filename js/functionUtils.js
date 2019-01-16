@@ -212,71 +212,108 @@ function getTemp(dateActuelle, donnee){
 }
 
 function displayFrance(here){
+	var ref = 19;
 	var dat = 0;
 	dat = here.mean_extent;
 	var franceSQ = 643801 ;
 	//Les extents sont en 10^6 km²
 	var percentSQ = Math.round(dat*1000000/franceSQ);
-	
 	var q = percentSQ/4
 	var r = percentSQ%4
 	var b = 0
+	var c = 0
+	var im = "data/frbleue.svg"
 	if(r==0){b = 1}
-	
 	for(i=0; i<q-1+b;++i){
 		for(j=0;j<4;j++){
+		if(c>=ref){im = "data/frvert.svg"}
 		var imgs = svg.append("svg:image")
-		    .attr("xlink:href", "data/frbleue.svg")
+		    .attr("xlink:href", im)
 		    .attr("id", "france")
 	        .attr("y",-60+i*25 )
 	        .attr("x",-55+j*25 )
 		    .attr("width", "25")
 		    .attr("height", "25");
+			c += 1
 		}
 	}
 	for(j=0; j<r;++j){
+	if(c>=ref){im = "data/frvert.svg"}
 	var imgs = svg.append("svg:image")
-		.attr("xlink:href", "data/frbleue.svg")
+		.attr("xlink:href", im)
 		.attr("id", "france")
 	    .attr("y",-60+i*25 )
 	    .attr("x",-55+j*25 )
 		.attr("width", "25")
-		.attr("height", "25");	
+		.attr("height", "25");
+		c += 1
 	}
+	if(c<=ref){
+	im = "data/frrouge.svg"	
+	for(k=0; k<ref-c;++k){
+	var imgs = svg.append("svg:image")
+		.attr("xlink:href", im)
+		.attr("id", "france")
+	    .attr("y",-60+i*25 )
+	    .attr("x",-55+j*25+k*25 )
+		.attr("width", "25")
+		.attr("height", "25");
+	}	
+	}
+
 }
 
 function displayFrance_South(here){
+	var ref = 18;
 	var dat = 0;
 	dat = here.mean_extent;
 	var franceSQ = 643801 ;
 	//Les extents sont en 10^6 km²
 	var percentSQ = Math.round(dat*1000000/franceSQ);
-	
+	var c = 0
 	var q = percentSQ/4
 	var r = percentSQ%4
 	var b = 0
+	var im = "data/frbleue.svg"
 	if(r==0){b = 1}
 	
 	for(i=0; i<q-1+b;++i){
 		for(j=0;j<4;j++){
+		if(c>=ref){im = "data/frvert.svg"}
 		var imgs_south = svg_south.append("svg_south:image")
-		    .attr("xlink:href", "data/frbleue.svg")
+		    .attr("xlink:href", im)
 		    .attr("id", "france_south")
 	        .attr("y",-60+i*25 )
 	        .attr("x",-55+j*25 )
 		    .attr("width", "25")
 		    .attr("height", "25");
+			c += 1
 		}
 	}
 	for(j=0; j<r;++j){
+	if(c>=ref){im = "data/frvert.svg"}
 	var imgs_south = svg_south.append("svg_south:image")
-		.attr("xlink:href", "data/frbleue.svg")
+		.attr("xlink:href", im)
 		.attr("id", "france_south")
 	    .attr("y",-60+i*25 )
 	    .attr("x",-55+j*25 )
 		.attr("width", "25")
 		.attr("height", "25");	
+		c += 1
 	}
+	if(c<=ref){
+	im = "data/frrouge.svg"	
+	for(k=0; k<ref-c;++k){
+	var imgs_south = svg_south.append("svg_south:image")
+		.attr("xlink:href", im)
+		.attr("id", "france_south")
+	    .attr("y",-60+i*25 )
+	    .attr("x",-55+j*25+k*25 )
+		.attr("width", "25")
+		.attr("height", "25");
+	}	
+	}
+	
 }
 
 
