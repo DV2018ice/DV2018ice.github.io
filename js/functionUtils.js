@@ -48,9 +48,9 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.range([0,gheight]);
 
 			var x = d3.scaleLinear()
-			.domain([0,12])
+			.domain([1,12])
 			//.domain([minDate,maxDate])
-			.range([0,gwidth-gwidth/5]);
+			.range([1,gwidth-gwidth/5]);
 
 
 			var yAxis = d3.axisLeft(y);
@@ -65,7 +65,7 @@ function divAnnee(dateActuelle, pageX, pageY){
 
 			var svg = d3.select("#my_dataviz_line_extent").append("svg")
 			.attr("id","svg")
-			.attr("height",gheight+30).attr("width",gwidth);
+			.attr("height",gheight+40).attr("width",gwidth);
 
 			var chartGroup = svg.append("g").attr("class","chartGroup")
 			.attr("id","svg")
@@ -84,8 +84,8 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.call(xAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", 30)
-				.attr("x", 0)
+				.attr("y", -105)
+				.attr("x", 60)
 				//.attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("taille glace (m²)");
@@ -97,8 +97,8 @@ function divAnnee(dateActuelle, pageX, pageY){
 			.call(yAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", 0)
-				.attr("x", 0)
+				.attr("y", 125)
+				.attr("x", 150)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("mois de l'année");
@@ -154,26 +154,40 @@ function getTemp(dateActuelle, donnee){
 			.range([gheight,0]);
 
 			var x = d3.scaleLinear()
-			.domain([minDateTemp,maxDateTemp])
-			.range([0,gwidth]);
+			.domain([1,12])
+			.range([1,gwidth-gwidth/5]);
 
+			
 
 			var yAxis = d3.axisLeft(y);
 
 			var xAxis = d3.axisBottom(x);
+
+			
 
 			var line = d3.line()
 			.x(function(d){ return x(d.month); })
 			.y(function(d){ return y(d.temp); })
 			.curve(d3.curveCardinal);
 
+/*			var z = d3.scaleLinear()
+			.domain([1,12])
+			.range([gheight,0]);
+			var zAxis = d3.axisBottom(z);
+
+			var line_2 = d3.line()
+			.x(function(d){ return x(d.month); })
+			.y(function(d){ return y(d.temp); })
+			.curve(d3.curveCardinal);*/
+
+
 			var svgTemp = d3.select("#my_dataviz_line_temp").append("svg")
 			.attr("id","svgTemp")
-			.attr("height",gheight+30).attr("width",gwidth);
+			.attr("height",gheight+40).attr("width",gwidth);
 
 			var chartGroup = svgTemp.append("g").attr("class","chartGroup")
 			.attr("id","svgTemp")
-			.attr("height",gheight-gheight/2).attr("width",gwidth-gwidth/3)
+			.attr("height",gheight-gheight/2).attr("width",gwidth/3)
 			.attr("transform","translate("+(30)+","+(+10)+")");
 
 			// var chartGroup = svgTemp.append("g").attr("class","chartGroup");
@@ -183,6 +197,10 @@ function getTemp(dateActuelle, donnee){
 			.attr("class","line")
 			.attr("d",function(d){ return line(tableau); });
 
+/*			chartGroup.append("path")
+			.attr("class","line_2")
+			.attr("d",function(d){ return line(tableau); });*/
+
 
 			chartGroup.append("g")
 			.attr("class","axisx")
@@ -190,8 +208,8 @@ function getTemp(dateActuelle, donnee){
 			.call(xAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", 30)
-				.attr("x", 0)
+				.attr("y", -105)
+				.attr("x", 70)
 				// .attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("Temperature (ºc)");;
@@ -202,13 +220,63 @@ function getTemp(dateActuelle, donnee){
 			.call(yAxis)
 			.append("text")
 				//.attr("transform", "rotate(-90)")
-				.attr("y", 0)
-				.attr("x", 0)
+				.attr("y", 130)
+				.attr("x", 150)
 				// .attr("dy", ".71em")
 				.style("text-anchor", "end")
 				.text("mois de l'année");
 
 		});
+/*https://bl.ocks.org/uredkar/71c3a0d93cc05527c83cdc12f9549ab3*/
+		d3.csv("./data/south_mean_extent.csv")
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
+		.get(function(error, rows) {
+
+			tableau = []
+			rows.forEach(function(element) {
+				if(element.year == dateActuelle){
+					tableau.push(element)
+				}
+			});
+
+			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
+			var gheight = gwidth / 3;
+
+			cs(gwidth);cs(gheight);
+
+			var y = d3.scaleLinear()
+			.domain([1,12])
+			.range([gheight,0]);
+			var zAxis = d3.axisBottom(y);
+
+			var x = d3.scaleLinear()
+			.domain([1,12])
+			//.domain([minDate,maxDate])
+			.range([1,gwidth-gwidth/5]);
+
+
+			var zAxis = d3.axisLeft(y);
+
+			var xAxis = d3.axisBottom(x);
+
+			var line_2 = d3.line()
+			.x(function(d){ return x(d.month); })
+			.y(function(d){ return y(d.temp); })
+			.curve(d3.curveCardinal);
+
+			var chartGroup = svgTemp.append("g").attr("class","chartGroup")
+			.attr("id","svgTemp")
+			.attr("height",gheight-gheight/2).attr("width",gwidth/3)
+			.attr("transform","translate("+(30)+","+(+10)+")");
+
+			chartGroup.append("path")
+			.attr("class","line_2")
+			.attr("d",function(d){ return line(tableau); });
+
+
+			
+	});
 }
 
 function displayFrance(here){

@@ -20,27 +20,31 @@
 	<script type="text/javascript"  src="./js/d3-scale-radial.js"></script> <!-- Function for radial charts -->
 	<script type="text/javascript"  src="./js/functionUtils.js"></script> <!-- Function for radial charts -->
 
- 
+
 
 </head>
 
 <body>
-
-	<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: rgb(182,182,182);">
-		<a class="navbar-brand" href="#">Bar de navigation</a>
+	<!-- navbar-expand-lg -->
+	<nav class="navbar sticky-top navbar-expand navbar-light" style="background-color: rgb(182,182,182);">
+		<!-- <a class="navbar-brand" href="#">Bar de navigation</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
-		</button>
+		</button> -->
+
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
+				<!-- <li class="nav-item active">
 					<a class="nav-link" href="#">Présentation du projet<span class="sr-only">(current)</span></a>
-				</li>
+				</li> -->
 				<li class="nav-item">
-					<a class="nav-link"  href="#section2">Visualisation</a>
+					<a class="nav-link"  href="#section1">Visualisation</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link"  href="#section2">Déduction</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="#section3">Déduction</a>
 				</li>
 			</ul>
 		</div>
@@ -49,67 +53,107 @@
 	<div id="section1" class="container-fluid">
 		<h1>Présentation du projet de data visualisation du groupe 0.</h1>
 		<h2>Etendue annuelle des calottes glaciaires, de 1979 à 2016</h2>
-		<p>2crire qqs mots voir mettre une image .salut je suis laaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+		<p>
+			Le réchauffement climatique est un sujet bien connu, de nos jours.
+			<br>
+			On s'interroge à la fois sur ses causes que sur ses conséquences.
+			<br>
+			La fonte des glaces polaires est souvent citée comme étant l'une de ces conséquences.
+			<br>
+			Est-ce vraiment le cas ? Quelle est l'importance de ce phénomène ? Nous allons tenter de répondre à ces questions à l'aide d'une visualisation de données.
+		</p>
+
 	</div>
 
-<div class="container-fluid" id="section2">
 
-	<div class="row" id="title" align="center">
-		<h1 align="center">Etendue annuelle des calottes glaciaires, de 1979 à 2016</h1>
+
+
+
+	<div class="container-fluid" id="section2">
+
+		<!-- <div class="row" id="title" align="center">
+			<h1 align="center">Etendue annuelle des calottes glaciaires, de 1979 à 2016</h1>
+		</div> -->
+
+		<div class="row">
+			<div class="col col-lg" align="center">
+				<h1 align="center">Etendue annuelle des calottes glaciaires, de 1979 à 2016</h1>
+			</div>
+		</div>
+
+		<br>
+		<div class="row">
+			<div class="col col-lg" align="center">
+				<h2 align="center">Pôle Nord</h2>
+			</div>
+		</div>
+
+
+		<div class="row" id="escargots">
+
+			<!-- PADDING -->
+			<div class="col-1"></div>
+
+
+			<!-- COLONNE NORD -->
+			<div class="col-4" id="my_dataviz"></div>
+
+
+			<!-- PADDING -->
+			<div class="col-2"></div>
+
+
+			<!-- COLONNE SUD -->
+			<div class="col-4" id="my_dataviz_line_temp">
+				<p align="center">Température</p>
+			</div>
+
+
+			<!-- PADDING -->
+			<div class="col-1"></div>
+		</div>
+
+
+
+
+		<div class="row" id="graphiques">
+
+			<!-- PADDING -->
+			<div class="col-1"></div>
+
+			<!-- COLONNE NORD -->
+			<div class="col-4" id="my_dataviz_line_extent">
+				<p align="center">Extension</p>
+			</div>
+
+			<!-- PADDING -->
+			<div class="col-2">
+				<h2>Pôle Sud</h2>
+			</div>
+
+
+			<!-- COLONNE SUD -->
+			<div class="col-4" id="my_dataviz_south">
+			</div>
+
+			<!-- PADDING -->
+			<div class="col-1"></div>
+		</div>
 	</div>
 
-	<div class="row" id="escargots">
 
-		<!-- PADDING -->
-		<div class="col-1"></div>
 
-		<!-- COLONNE NORD -->
-		<div class="col-4" id="my_dataviz">
-			<h2>Pôle Nord</h2>
-		</div>
 
-		<!-- PADDING -->
-		<div class="col-2"></div>
 
-		<!-- COLONNE SUD -->
-		<div class="col-4" id="my_dataviz_south">
-			<h2>Pôle Sud</h2>
-		</div>
+	<div id="section3" class="container-fluid">
+		<h1>Conclusion.</h1>
 
-		<!-- PADDING -->
-		<div class="col-1"></div>
+
+		<p>Nous pouvons conclure, d'après cette visualisation, que la température aux pôles n'a presque pas changé. Cependant, la surface de glace au pôle Nord diminue effectivement alors que celle du pôle Sud semble augmenter. La fonte des glaces ne semble donc s'appliquer qu'au pôle Nord et elle ne semble pas due à une augmentation de la température.</p>
 	</div>
 
-	<div class="row" id="graphiques">
 
-		<!-- PADDING -->
-		<div class="col-1"></div>
-
-		<!-- COLONNE NORD -->
-		<div class="col-4" id="my_dataviz_line_extent">
-			<h2>Extension</h2>
-		</div>
-
-		<!-- PADDING -->
-		<div class="col-2"></div>
-
-		<!-- COLONNE SUD -->
-		<div class="col-4" id="my_dataviz_line_temp">
-			<h2>Température</h2>
-		</div>
-
-		<!-- PADDING -->
-		<div class="col-1"></div>
-	</div>
-</div>
-<div id="section3" class="container-fluid">
-	<h1>Présentation du projet de data visualisation du groupe 0.</h1>
-	<h2>Etendue annuelle des calottes glaciaires, de 1979 à 2016</h2>
-	<p>2crire qqs mots voir mettre une image .</p>
-</div>
-
-
-<script>
+	<script>
 
 
 		init();
@@ -206,11 +250,12 @@
 				displayFrance(d)
 				// displayFrance_South(d)
 				// document.getElementById("title_extent").style.display='block';
+				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
 			})
 			.on("mouseout", function(d){
 				hideTooltip(this);
-				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
-				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
+				
 
 				//var x = document.getElementById("title_extent");
 				//document.getElementById("title_extent").style.display='none';
@@ -283,14 +328,14 @@
 				// Ajout des map de france
 				//displayFrance(d)
 				displayFrance_South(d)
-				
+				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
 			})
 
 			// Lorsque l'on retire la souris
 			.on("mouseout", function(d){
 				hideTooltip(this);
-				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
-				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
+				
 			});
 			var text2 = svg_south.selectAll("text2")
 			.data(data)
