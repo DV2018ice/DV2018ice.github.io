@@ -1,5 +1,5 @@
 ﻿# DV2018ice.github.io
-# Projet Data Viz
+# Projet Data Visualisation
 # Evolution de l'étendue des calottes polaires de 1979 à 2016 
 
 >Date : Jan. 2019 
@@ -14,7 +14,7 @@ Nous proposons une visualisation de la variation annuelle de l'étendue des calo
 
 # Sources
 
-Document de cadrage du projet récupèrable à l'adresse suivante :
+Document de cadrage du projet récupérable à l'adresse suivante :
 https://docs.google.com/document/d/1y9GVjgDm92eZbXWagMJ42XGKJC_3DHIKRjNLFezMbRQ/edit#heading=h.h609stdapcov
 
 *Daily Sea Ice Extent Data* récupérable à l'adresse suivante :
