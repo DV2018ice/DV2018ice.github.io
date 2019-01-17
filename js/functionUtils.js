@@ -159,6 +159,7 @@ function displayLineChart(annee, position){
 		        .call(d3.axisRight(y1))
 		        .append("text")
 		        	.attr("class", "textY1")
+		        	.attr("stroke", "red")
 					.attr("y", 0)
 					.attr("x", 0)
 					.attr("dy", ".71em")
@@ -210,6 +211,7 @@ function displayLineChart(annee, position){
 		        .call(d3.axisRight(y1))
 		        .append("text")
 		        	.attr("class", "textY1")
+		        	.attr("stroke", "red")
 					.attr("y", 0)
 					.attr("x", 0)
 					.attr("dy", ".71em")
@@ -331,44 +333,21 @@ function displayLineChartLines(annee, position){
 		        .style("stroke", "red")
 		        .attr("d", valueline2);
 
-	    // Add the X Axis
-	    svg.append("g")
-	        .attr("transform", "translate(0," + height + ")")
-	        .attr("class", "axisx")
-	        .call(d3.axisBottom(x))
-	        .append("text")
-	        	.attr("class", "textX")
-				.attr("y", 25)
-				.attr("x", (width+200)/2)
-				.attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.text("Mois de l'année "+annee);
+	    }else{
+	    	svg_south_Line.append("path")
+		        .data([tableau_temp])
+		        .attr("class", "line")
+		        .attr("d", valueline);
 
-	    // Add the Y0 Axis
-	    svg.append("g")
-	        .attr("class", "axisy0")
-	        .attr("transform", "translate( " + 40 + ", 0 )")
-	        .call(d3.axisLeft(y0))
-	        .append("text")
-	        	.attr("class", "textY0")
-				.attr("y",10)
-				.attr("x", 60)
-				.style("text-anchor", "end")
-				.text("Température");
+		    // Add the valueline2 path.
+		    svg_south_Line.append("path")
+		        .data([tableau_extent])
+		        .attr("class", "line")
+		        .style("stroke", "red")
+		        .attr("d", valueline2);
 
-	    // Add the Y1 Axis
-	    svg.append("g")
-	        .attr("class", "axisy1")
-	        .attr("transform", "translate( " + width + ", 0 )")
-	        .call(d3.axisRight(y1))
-	        .append("text")
-	        	.attr("class", "textY1")
-				.attr("y", 0)
-				.attr("x", 0)
-				.attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.style("stroke", "red")
-				.text("Extension");
+	    }
+
 	  });
 	});
 }
