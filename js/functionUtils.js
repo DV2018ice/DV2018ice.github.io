@@ -125,10 +125,9 @@ function displayLineChart(annee, position){
 	    svg.append("g")
 	        .attr("transform", "translate(0," + height + ")")
 	        .attr("class", "axisx")
-	        .style("font", "14px times")
 	        .call(d3.axisBottom(x))
 	        .append("text")
-	        	.attr("class", "textY1")
+	        	.attr("class", "textX")
 				.attr("y", 25)
 				.attr("x", (width+200)/2)
 				.attr("dy", ".71em")
@@ -141,7 +140,7 @@ function displayLineChart(annee, position){
 	        .attr("transform", "translate( " + 40 + ", 0 )")
 	        .call(d3.axisLeft(y0))
 	        .append("text")
-	        	.attr("class", "textY1")
+	        	.attr("class", "textY0")
 				.attr("y",10)
 				.attr("x", 60)
 				.style("text-anchor", "end")
@@ -158,6 +157,7 @@ function displayLineChart(annee, position){
 				.attr("x", 0)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
+				.style("stroke", "red")
 				.text("Extension");
 	  });
 	});

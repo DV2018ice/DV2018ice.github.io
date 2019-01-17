@@ -28,6 +28,19 @@ div.tooltip {
 	pointer-events: none;
 }
 
+#my_dataviz_line_temp {
+	margin :auto;
+	stroke: steelblue;
+	fill: none;
+	stroke-width:4px;
+}
+#my_dataviz_line_extent {
+	margin :auto;
+	stroke: steelblue;
+	fill: none;
+	stroke-width:4px;
+}
+
 .axisx, .axisy{
 	fill: white;
 	stroke-width:1px;
@@ -47,24 +60,8 @@ div.tooltip {
 }
 
 .textY1{
-	fill: red;
+	color:red;
 }
-
-
-
-#my_dataviz_line_temp {
-	margin :auto;
-	stroke: steelblue;
-	fill: none;
-	stroke-width:4px;
-}
-#my_dataviz_line_extent {
-	margin :auto;
-	stroke: steelblue;
-	fill: none;
-	stroke-width:4px;
-}
-
 
 h1{
 	color: azure;
