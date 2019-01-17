@@ -46,6 +46,9 @@
 				<li class="nav-item">
 					<a class="nav-link"  href="#section3">Déduction</a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link"  href="#section4">Auteurs et sources</a>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -148,6 +151,35 @@
 
 		<p>Nous pouvons conclure, d'après cette visualisation, que la température aux pôles n'a presque pas changé. Cependant, la surface de glace au pôle Nord diminue effectivement alors que celle du pôle Sud semble augmenter. La fonte des glaces ne semble donc s'appliquer qu'au pôle Nord et elle ne semble pas due à une augmentation de la température.</p>
 	</div>
+
+
+	<div id="section4" class="container-fluid">
+		<h3>Auteurs:</h3>
+		Elise Guiraud, Clément Cascales, Nicolas Loiseau--Viton et Julien Thomas 
+		<br><br>
+		<h3>Nos sources:</h3>
+
+		<a href="https://www.d3-graph-gallery.com/graph/circular_barplot_basic.html">
+			Base de code du barplot circulaire.
+		</a>
+		<br>
+		<a href="https://docs.google.com/document/d/1y9GVjgDm92eZbXWagMJ42XGKJC_3DHIKRjNLFezMbRQ/edit#heading=h.h609stdapcov">
+			Document de suivi de projet.
+		</a>
+		<br>
+		<a href="https://www.kaggle.com/nsidcorg/daily-sea-ice-extent-data">
+			Données d'extension de la glace au cours des années.
+		</a>
+		<br>
+		<a href="http://sdwebx.worldbank.org/climateportal/index.cfm?page=country_historical_climate&ThisCCode=GRL">
+			Données de température du pôle nord au cours des années.
+		</a>
+		<br>
+		<a href="http://www.nerc-bas.ac.uk/icd/gjma/vostok.temps.html">
+			Données de température du pôle sud.
+		</a>
+		<br>
+	</div> 
 
 
 	<script>
@@ -270,12 +302,6 @@
 			})
 			.on("mouseout", function(d){
 				hideTooltip(this);
-				
-
-				//var x = document.getElementById("title_extent");
-				//document.getElementById("title_extent").style.display='none';
-				//hide(x)
-				//document.getElementsByTagName('h1')[0].style.display = 'none';
 			});
 
 			var text = svg.selectAll("text")
@@ -306,22 +332,6 @@
 			.attr("font-size", "20px")
 			.attr("fill", "white");
 			
-			/*var textLabels2016 = text
-			.attr("x", function(d){ 
-				if(d.Year=="2016") 
-					return -100; 
-				else 
-					return 150;  })
-			.attr("y", function(d){ 
-				if(d.Year=="2016") 
-					return -200; 
-				else 
-					return 200; 
-			})
-			.text( function (d) { if(d.year=="2016") return d.Year; })
-			.attr("font-family", "sans-serif")
-			.attr("font-size", "20px")
-			.attr("fill", "white");*/
 			
 		});
 
@@ -335,10 +345,6 @@
 			.align(0)                  // This does nothing ?
 			.domain( data.map(function(d) { return d.Year; }) ); // The domain of the X axis is the list of states.
 
-			// Y scale
-			/*var y = d3.scaleRadial()
-			.range([innerRadius, outerRadius])   // Domain will be define later.
-			.domain([10, 13]); // Domain of Y is from 0 to the max seen in the data*/
 
 			svg_south.append("g")
 			.selectAll("path")
@@ -363,10 +369,6 @@
 
 				d3.selectAll("#my_dataviz_line_temp > #svg_north > .line").remove(); 
 				d3.selectAll("#my_dataviz_line_extent > #svg_south > .line").remove(); 
-
-				//divAnneeTest(d.Year);
-				// divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-				// getTemp(d.Year, "south");
 				displayLineChartLines(d.Year, "north")
 				displayLineChartLines(d.Year, "south")
 				// Ajout des map de france
@@ -408,19 +410,8 @@
 			
 
 		});
-
-
-		
 	</script>
 	
-	<footer>
-	Elise Guiraud, Clément Cascales, Nicolas Loiseau--Viton et Julien Thomas <br>
-	Sources : <br>
-	<a href="url">https://www.d3-graph-gallery.com/graph/circular_barplot_basic.html</a><br>
-	<a href="url">https://docs.google.com/document/d/1y9GVjgDm92eZbXWagMJ42XGKJC_3DHIKRjNLFezMbRQ/edit#heading=h.h609stdapcov</a><br>
-	<a href="url">https://www.kaggle.com/nsidcorg/daily-sea-ice-extent-data</a><br>
-	<a href="url">http://sdwebx.worldbank.org/climateportal/index.cfm?page=country_historical_climate&ThisCCode=GRL</a><br>
-	<a href="url">http://www.nerc-bas.ac.uk/icd/gjma/vostok.temps.html</a><br>
-	</footer> 
+
 </body>
 </html>

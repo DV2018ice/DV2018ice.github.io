@@ -113,6 +113,7 @@ function displayLineChart(annee, position){
 	    // Add the valueline path.
 	    // 
 	    //position == "north"
+	    xdata = ["","jan","fév","mar","avr","mai","juin","juil","aout","sep","oct","nov","dec"]
 	    if(position == "north"){
 		    svg_north_Line.append("path")
 		        .data([tableau_temp])
@@ -127,7 +128,6 @@ function displayLineChart(annee, position){
 		        .attr("d", valueline2);
 
 		    // Add the X Axis
-			xdata = ["","jan","fév","mar","avr","mai","juin","juil","aout","sep","oct","nov","dec"]
 		    svg_north_Line.append("g")
 		        .attr("transform", "translate(0," + height + ")")
 		        .attr("class", "axisx")
@@ -181,7 +181,6 @@ function displayLineChart(annee, position){
 		        .attr("d", valueline2);
 
 		    // Add the X Axis
-			xdata = ["","jan","fév","mar","avr","mai","juin","juil","aout","sep","oct","nov","dec"]
 		    svg_south_Line.append("g")
 		        .attr("transform", "translate(0," + height + ")")
 		        .attr("class", "axisx")
@@ -252,7 +251,7 @@ function displayLineChartLines(annee, position){
 	// var width = document.getElementById("my_dataviz_line_extent").clientWidth;
 	// var height = width / 3;
 	// set the ranges
-	var x = d3.scaleTime().domain([1,12]).range([40, width]);
+	var x = d3.scaleLinear().domain([1,12]).range([40, width]);
 	var y0 = d3.scaleLinear().domain([-50,0]).range([height, 10]);
 	var y1 = d3.scaleLinear().domain([1,17]).range([height, 10]);
 
@@ -274,7 +273,7 @@ function displayLineChartLines(annee, position){
 	// 		.attr("id","svg")
 	// 		.attr("height",height+40).attr("width",width+200)
 	// 		.attr("transform","translate("+(-30)+","+(+10)+")");
-
+	xdata = ["","jan","fév","mar","avr","mai","juin","juil","aout","sep","oct","nov","dec"]
 	d3.csv(dataExtent)
 	    .row(function(d) 
 	      { return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
@@ -337,6 +336,22 @@ function displayLineChartLines(annee, position){
 		        .style("stroke", "red")
 		        .attr("d", valueline2);
 
+		    d3.selectAll("#my_dataviz_line_temp > #svg_north > .axisx").remove(); 
+
+		   	svg_north_Line.append("g")
+		        .attr("transform", "translate(0," + height + ")")
+		        .attr("class", "axisx")
+		        .style("font", "14px times")
+		        .call(d3.axisBottom(x).tickFormat(function (d) {return xdata[d];}))
+		        .append("text")
+		        	.attr("class", "textY1")
+					.attr("stroke", "white")
+					.attr("y", 25)
+					.attr("x", (width+200)/2)
+					.attr("dy", ".71em")
+					.style("text-anchor", "end")
+					.text("Mois de l'année "+annee);
+
 	    }else{
 	    	svg_south_Line.append("path")
 		        .data([tableau_temp])
@@ -349,6 +364,22 @@ function displayLineChartLines(annee, position){
 		        .attr("class", "line")
 		        .style("stroke", "red")
 		        .attr("d", valueline2);
+
+		    d3.selectAll("#my_dataviz_line_extent > #svg_south > .axisx").remove(); 
+
+		    svg_south_Line.append("g")
+		        .attr("transform", "translate(0," + height + ")")
+		        .attr("class", "axisx")
+		        .style("font", "14px times")
+		        .call(d3.axisBottom(x).tickFormat(function (d) {return xdata[d];}))
+		        .append("text")
+		        	.attr("class", "textY1")
+					.attr("y", 25)
+					.attr("x", (width+200)/2)
+					.attr("dy", ".71em")
+					.attr("stroke", "white")
+					.style("text-anchor", "end")
+					.text("Mois de l'année "+annee);
 
 	    }
 
