@@ -211,6 +211,19 @@
 
 		var g = svg.append("g");
 
+		var width = document.getElementById("my_dataviz_line_extent").clientWidth;
+		var height = width / 3;
+
+		var svg_north_Line = d3.select("#my_dataviz_line_temp").append("svg")
+			.attr("id","svg_north")
+			.attr("height",height+40).attr("width",width+200)
+			.attr("transform","translate("+(-30)+","+(+10)+")");
+
+		var svg_south_Line = d3.select("#my_dataviz_line_extent").append("svg")
+			.attr("id","svg_south")
+			.attr("height",height+40).attr("width",width+200)
+			.attr("transform","translate("+(-30)+","+(+10)+")");
+
 		var dataSudYear = []
 		var dataNordYear = []
 		var dataNordYearT = []
@@ -245,12 +258,12 @@
 			.on("mouseover", function(d){
 				displayTooltip(this);
 
-				d3.selectAll("#my_dataviz_line_temp > #svg").remove(); 
-				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
+				d3.selectAll("#my_dataviz_line_temp > #svg_north > .line").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > #svg_south > .line").remove(); 
 				//divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				//getTemp(d.Year, "north");
-				displayLineChart(d.Year, "north")
-				displayLineChart(d.Year, "south")
+				displayLineChartLines(d.Year, "north")
+				displayLineChartLines(d.Year, "south")
 				displayFrance(d)
 				displayFrance_South(d)
 				// document.getElementById("title_extent").style.display='block';
@@ -348,14 +361,14 @@
 			.on("mouseover", function(d){
 				displayTooltip(this);
 
-				d3.selectAll("#my_dataviz_line_temp > #svg").remove(); 
-				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
+				d3.selectAll("#my_dataviz_line_temp > #svg_north > .line").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > #svg_south > .line").remove(); 
 
 				//divAnneeTest(d.Year);
 				// divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				// getTemp(d.Year, "south");
-				displayLineChart(d.Year, "north")
-				displayLineChart(d.Year, "south")
+				displayLineChartLines(d.Year, "north")
+				displayLineChartLines(d.Year, "south")
 				// Ajout des map de france
 				displayFrance(d)
 				displayFrance_South(d)
