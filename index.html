@@ -272,18 +272,42 @@
 			.attr("x", function(d){ 
 				if(d.Year=="1979" || d.Year=="1997") 
 					return 0; 
+				else if(d.Year=="2016")
+					return -45;
+				else
+					return 150
+			})
+			.attr("y", function(d){ 
+				if(d.Year=="1979") 
+					return -200; 
+				else if(d.Year=="1997") 
+					return 200; 
+				else if(d.Year=="2016")
+					return -190
+				
+			})
+			.text( function (d) { if(d.Year=="1979" || d.Year=="1997" || d.Year=="2016") return d.Year; })
+			.attr("font-family", "sans-serif")
+			.attr("font-size", "20px")
+			.attr("fill", "white");
+			
+			/*var textLabels2016 = text
+			.attr("x", function(d){ 
+				if(d.Year=="2016") 
+					return -100; 
 				else 
 					return 150;  })
 			.attr("y", function(d){ 
-				if(d.Year=="1979") 
+				if(d.Year=="2016") 
 					return -200; 
 				else 
 					return 200; 
 			})
-			.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
+			.text( function (d) { if(d.year=="2016") return d.Year; })
 			.attr("font-family", "sans-serif")
 			.attr("font-size", "20px")
-			.attr("fill", "white");
+			.attr("fill", "white");*/
+			
 		});
 
 
@@ -346,18 +370,24 @@
 			.attr("x", function(d){ 
 				if(d.Year=="1979" || d.Year=="1997") 
 					return 0; 
+				else if(d.Year=="2016")
+					return -45;
 				else 
 					return 150;  })
 			.attr("y", function(d){ 
 				if(d.Year=="1979") 
 					return -200; 
-				else 
+				else if(d.Year=="1997")
 					return 200; 
+				else if(d.Year=="2016")
+					return -190
 			})
-			.text( function (d) { if(d.Year=="1979" || d.Year=="1997") return d.Year; })
+			.text( function (d) { if(d.Year=="1979" || d.Year=="1997" || d.Year=="2016") return d.Year; })
 			.attr("font-family", "sans-serif")
 			.attr("font-size", "20px")
 			.attr("fill", "white");
+			
+			
 
 		});
 
