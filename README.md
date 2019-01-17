@@ -9,10 +9,10 @@
 
 
 # Description du projet  
-Dans le cadre du cours de Data Visualization des Master 2 Intelligence Artificielle et Data Science de Lyon 1 (https://lyondataviz.github.io/teaching/lyon1-m2/2018/) nous proposons une visualisation de la variation annuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar charts circulaires qui représentent l'étendue annuelle pour chaque calotte. Lorsqu'on sélectionne une des barres (donc une année), on obtient deux nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les deux pôles.
+Dans le cadre du cours de [Data Visualization](https://lyondataviz.github.io/teaching/lyon1-m2/2018/) des Master 2 [Intelligence Artificielle](http://master-info.univ-lyon1.fr/IA/) et [Data Science](http://master-info.univ-lyon1.fr/DS/) de [l'Université Lyon 1](https://www.univ-lyon1.fr/) nous proposons une visualisation de la variation annuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar charts circulaires qui représentent l'étendue annuelle pour chaque calotte. Lorsqu'on sélectionne une des barres (donc une année), on obtient deux nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les deux pôles.
 
 # Project summary
-Within the framework of our Data Visualisation class of Master 2 Intelligence Artificielle and Data Science (https://lyondataviz.github.io/teaching/lyon1-m2/2018/), we propose you a visual display of the annual variation of the North and South polar ice cap extent. 
+Within the framework of our [Data Visualisation](https://lyondataviz.github.io/teaching/lyon1-m2/2018/) class of Master 2 [Artificial Intelligence](http://master-info.univ-lyon1.fr/IA/) and [Data Science](http://master-info.univ-lyon1.fr/DS/), we propose you a visual display of the annual variation of the North and South polar ice cap extent. 
 It contains two circular bar charts which symbolize the annual extent for each ice cap. When you select one of the bars (a year), you get two new graphics: the monthly temperature evolution and the monthly evolution of the ice extent during this year for the two poles.
 
 # Sources et inspirations
