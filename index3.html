@@ -111,7 +111,7 @@ d3.csv("./data/north_mean_extent.csv")
 
     // Scale the range of the data
     x.domain(d3.extent(tableau_temp, function(d) { return d.month; }));
-    y0.domain([0, d3.max(tableau_temp, function(d) {return Math.max(d.temp);})]);
+    y0.domain([-35, 10]);
     y1.domain([0, d3.max(tableau_extent, function(d) {return Math.max(d.mean_extent); })]);
 
     // Add the valueline path.
@@ -143,13 +143,6 @@ d3.csv("./data/north_mean_extent.csv")
         .attr("class", "axisRed")
         .attr("transform", "translate( " + width + ", 0 )")
         .call(d3.axisRight(y1));
-
-
-
-
-
-
-
 
   });
 });

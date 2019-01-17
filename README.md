@@ -1,20 +1,26 @@
-﻿# DV2018ice.github.io
-# Projet Data Visualisation
+# DV2018ice.github.io
+# Projet Data Visualization
 # Evolution de l'étendue des calottes polaires de 1979 à 2016 
+# Yearly Ice Extent Data from 1979 to 2016
 
 >Date : Jan. 2019 
 
 >Auteurs : Elise Guiraud, Clément Cascales, Nicolas Loiseau--Viton, Julien Thomas
 
 
-# Description du projet
+# Description du projet  
+Dans le cadre du cours de Data Visualization des Master 2 Intelligence Artificielle et Data Science de Lyon 1 (https://lyondataviz.github.io/teaching/lyon1-m2/2018/) nous proposons une visualisation de la variation annuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar charts circulaires qui représentent l'étendue annuelle pour chaque calotte. Lorsqu'on sélectionne une des barres (donc une année), on obtient 4 nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les 2 pôles.
 
-Nous proposons une visualisation de la variation annuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar charts circulaires qui représentent l'étendue annuelle pour chaque calotte. Lorsqu'on sélectionne une des barres (donc une année), on obtient 4 nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les 2 pôles.
+# Project summary
+Within the framework of our Data Visualisation class of Master 2 Intelligence Artificielle and Data Science (https://lyondataviz.github.io/teaching/lyon1-m2/2018/), we propose you a visual display of the annual variation of the North and South polar icecap fullscope. 
+It contents two circular bar charts which symbolizes the annual scope for each icecap. When you select one of the bars (that is to say, a year), you get four new graphics: the monthly temperature evolution and the monthly evolution of the polar scope during this year for the two poles
 
+# Sources et inspirations
 
-# Sources
+Nous nous sommes inspirés de la Visualization proposée à l'adresse suivante :
+https://www.d3-graph-gallery.com/graph/circular_barplot_basic.html
 
-Document de cadrage du projet récupérable à l'adresse suivante :
+Document de cadrage du projet récupèrable à l'adresse suivante :
 https://docs.google.com/document/d/1y9GVjgDm92eZbXWagMJ42XGKJC_3DHIKRjNLFezMbRQ/edit#heading=h.h609stdapcov
 
 *Daily Sea Ice Extent Data* récupérable à l'adresse suivante :
