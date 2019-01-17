@@ -214,6 +214,8 @@
 		var dataSudYear = []
 		var dataNordYear = []
 		var dataNordYearT = []
+		displayLineChart("1979", "north")
+		displayLineChart("1979", "south")
 
 
 		d3.csv("./data/north_mean_extent_year.csv", function(data) {
@@ -242,14 +244,16 @@
 				)
 			.on("mouseover", function(d){
 				displayTooltip(this);
+
+				d3.selectAll("#my_dataviz_line_temp > #svg").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
 				//divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				//getTemp(d.Year, "north");
-				displayLineChart()
+				displayLineChart(d.Year, "north")
+				displayLineChart(d.Year, "south")
 				displayFrance(d)
 				displayFrance_South(d)
 				// document.getElementById("title_extent").style.display='block';
-				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
-				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
 			})
 			.on("mouseout", function(d){
 				hideTooltip(this);
@@ -344,16 +348,18 @@
 			.on("mouseover", function(d){
 				displayTooltip(this);
 
+				d3.selectAll("#my_dataviz_line_temp > #svg").remove(); 
+				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
+
 				//divAnneeTest(d.Year);
 				// divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				// getTemp(d.Year, "south");
-				displayLineChart()
+				displayLineChart(d.Year, "north")
+				displayLineChart(d.Year, "south")
 				// Ajout des map de france
 				displayFrance(d)
 				displayFrance_South(d)
-				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
-				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
-			})
+							})
 
 			// Lorsque l'on retire la souris
 			.on("mouseout", function(d){

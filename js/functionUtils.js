@@ -8,7 +8,7 @@ function init(){
 		maxDate = d3.max(rows, function(d) { return d.month; });
 	});
 
-	d3.csv("./data/ArcticTemp.csv")
+	d3.csv("./data/AntarcticTemp_2.csv")
 	.row(function(d) 
 		{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
 	.get(function(error, rows) {
@@ -22,20 +22,26 @@ function init(){
 
 var cs = function(x){ console.log(x)};
 
+function displayLineChart(annee, position){
 
-
-
-
-
-
-function displayLineChart(){
+	if(position == "north"){
+		var dataTemp = "./data/ArcticTemp.csv";
+		var dataExtent = "./data/north_mean_extent.csv";
+		var pos = "#my_dataviz_line_temp";
+	}
+	else{
+		var dataTemp = "./data/AntarcticTemp_2.csv";
+		var dataExtent = "./data/south_mean_extent.csv";
+		var pos = "#my_dataviz_line_extent";
+	}
+	
 
 	var width = document.getElementById("my_dataviz_line_extent").clientWidth;
 	var height = width / 3;
 	// set the ranges
-	var x = d3.scaleTime().domain([1,12]).range([0, width-10]);
-	var y0 = d3.scaleLinear().domain([-50,0]).range([height, 0]);
-	var y1 = d3.scaleLinear().domain([1,17]).range([height, 0]);
+	var x = d3.scaleTime().domain([1,12]).range([40, width]);
+	var y0 = d3.scaleLinear().domain([-50,0]).range([height, 10]);
+	var y1 = d3.scaleLinear().domain([1,17]).range([height, 10]);
 
 	// define the 1st line
 	var valueline = d3.line()
@@ -51,19 +57,19 @@ function displayLineChart(){
 	// append the svg obgect to the body of the page
 	// appends a 'group' element to 'svg'
 	// moves the 'group' element to the top left margin
-	var svg = d3.select("#my_dataviz_line_temp").append("svg")
+	var svg = d3.select(pos).append("svg")
 			.attr("id","svg")
-			.attr("height",height+40).attr("width",width+40)
+			.attr("height",height+40).attr("width",width+200)
 			.attr("transform","translate("+(-30)+","+(+10)+")");
 
-	d3.csv("./data/north_mean_extent.csv")
+	d3.csv(dataExtent)
 	    .row(function(d) 
 	      { return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
 	    .get(function(error, extent) {
 
 
 
-	  d3.csv("./data/ArcticTemp.csv")
+	  d3.csv(dataTemp)
 	  .row(function(d) 
 	      { return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
 	    .get(function(error, temp) {
@@ -71,14 +77,13 @@ function displayLineChart(){
 	      tableau_temp = []
 	      tableau_extent = []
 	      temp.forEach(function(element) {
-	        if(element.year == "2000"){
+	        if(element.year == annee){
 	          tableau_temp.push(element)
 	        }
 	      });
 
-
 	      extent.forEach(function(element) {
-	        if(element.year == "2000"){
+	        if(element.year == annee){
 	          tableau_extent.push(element)
 	        }
 	      });
@@ -100,7 +105,7 @@ function displayLineChart(){
 
 	    // Scale the range of the data
 	    x.domain(d3.extent(tableau_temp, function(d) { return d.month; }));
-	    y0.domain([-35, 10]);
+	    y0.domain([minTemp, 10]);
 	    y1.domain([0, d3.max(tableau_extent, function(d) {return Math.max(d.mean_extent); })]);
 
 	    // Add the valueline path.
@@ -115,291 +120,46 @@ function displayLineChart(){
 	        .attr("class", "line")
 	        .style("stroke", "red")
 	        .attr("d", valueline2);
-	    
 
 	    // Add the X Axis
 	    svg.append("g")
 	        .attr("transform", "translate(0," + height + ")")
 	        .attr("class", "axisx")
 	        .style("font", "14px times")
-	        .call(d3.axisBottom(x));
+	        .call(d3.axisBottom(x))
+	        .append("text")
+	        	.attr("class", "textY1")
+				.attr("y", 25)
+				.attr("x", (width+200)/2)
+				.attr("dy", ".71em")
+				.style("text-anchor", "end")
+				.text("Mois de l'année "+annee);
 
 	    // Add the Y0 Axis
 	    svg.append("g")
-	        .attr("class", "axisy")
-	        .attr("transform", "translate( " + 0 + ", 0 )")
-	        .call(d3.axisLeft(y0));
+	        .attr("class", "axisy0")
+	        .attr("transform", "translate( " + 40 + ", 0 )")
+	        .call(d3.axisLeft(y0))
+	        .append("text")
+	        	.attr("class", "textY1")
+				.attr("y",10)
+				.attr("x", 60)
+				.style("text-anchor", "end")
+				.text("Température");
 
 	    // Add the Y1 Axis
 	    svg.append("g")
-	        .attr("class", "axisy")
+	        .attr("class", "axisy1")
 	        .attr("transform", "translate( " + width + ", 0 )")
-	        .call(d3.axisRight(y1));
-
-	  });
-	});
-}
-
-
-
-
-
-
-function divAnnee(dateActuelle, pageX, pageY){
-
-	d3.csv("./data/north_mean_extent.csv")
-		.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
-		.get(function(error, rows) {
-
-			tableau = []
-			rows.forEach(function(element) {
-				if(element.year == dateActuelle){
-					tableau.push(element)
-				}
-			});
-
-			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
-			var gheight = gwidth / 3;
-
-			//cs(gwidth);
-			//cs(gheight);
-
-			var y = d3.scaleLinear()
-			.domain([17,0])
-			.range([0,gheight]);
-
-			var x = d3.scaleLinear()
-			.domain([1,12])
-			//.domain([minDate,maxDate])
-			.range([1,gwidth-gwidth/5]);
-
-
-			var yAxis = d3.axisLeft(y);
-
-			var xAxis = d3.axisBottom(x);
-
-			var line = d3.line()
-			.x(function(d){ return x(d.month); })
-			.y(function(d){ return y(d.mean_extent); })
-			.curve(d3.curveCardinal);
-
-
-			var svg = d3.select("#my_dataviz_line_extent").append("svg")
-			.attr("id","svg")
-			.attr("height",gheight+40).attr("width",gwidth);
-
-			var chartGroup = svg.append("g").attr("class","chartGroup")
-			.attr("id","svg")
-			.attr("height",gheight-gheight/2).attr("width",gwidth-gwidth/3)
-			.attr("transform","translate("+(30)+","+(+10)+")");
-
-			chartGroup.append("path")
-			.attr("class","line")
-			.attr("d",function(d){ return line(tableau); })
-
-
-			chartGroup.append("g")
-			.attr("class","axisx")
-			.style("font", "14px times")
-			.attr("transform","translate("+(0)+","+(gheight)+")")
-			.call(xAxis)
-			.append("text")
-				//.attr("transform", "rotate(-90)")
-				.attr("y", -105)
-				.attr("x", 60)
-				//.attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.text("taille glace (m²)");
-
-			chartGroup.append("g")
-			.attr("class","axisy")
-			.attr("transform","translate("+(0)+","+(0)+")")
-			//.attr("transform","translate("+(0)+","+(gheight)+")")
-			.call(yAxis)
-			.append("text")
-				//.attr("transform", "rotate(-90)")
-				.attr("y", 125)
-				.attr("x", 150)
+	        .call(d3.axisRight(y1))
+	        .append("text")
+	        	.attr("class", "textY1")
+				.attr("y", 0)
+				.attr("x", 0)
 				.attr("dy", ".71em")
 				.style("text-anchor", "end")
-				.text("mois de l'année");
-
-			
-	});
-}
-
-function getTemp(dateActuelle, donnee){
-	if(donnee == "north"){
-		var fichier = "./data/ArcticTemp.csv";
-		d3.csv(fichier)
-		.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
-		.get(function(error, rows) {
-			minTemp = d3.min(rows, function(d) {return d.temp})
-			maxTemp = 5;
-			minDateTemp = d3.min(rows, function(d) { return d.month; });
-			maxDateTemp = d3.max(rows, function(d) { return d.month; });
-	});
-	}else if(donnee == "south"){
-		var fichier = "./data/AntarcticTemp_2.csv";
-		d3.csv(fichier)
-		.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
-		.get(function(error, rows) {
-			minTemp = d3.min(rows, function(d) {return d.temp})
-			maxTemp = d3.max(rows, function(d) { return d.temp; });
-			minDateTemp = d3.min(rows, function(d) { return d.month; });
-			maxDateTemp = d3.max(rows, function(d) { return d.month; });
-	});
-
-	}
-
-	d3.csv(fichier)
-	.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
-		.get(function(error, rows) {
-			tableau = []
-			rows.forEach(function(element) {
-				if(element.year == dateActuelle){
-					tableau.push(element)
-				}
-			});
-
-			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
-			var gheight = gwidth / 3;
-
-			//cs(gwidth);
-			//cs(gheight);
-
-			var y = d3.scaleLinear()
-			.domain([minTemp,maxTemp])
-			.range([gheight,0]);
-
-			var x = d3.scaleLinear()
-			.domain([1,12])
-			.range([1,gwidth-gwidth/5]);
-
-			
-
-			var yAxis = d3.axisLeft(y);
-
-			var xAxis = d3.axisBottom(x);
-
-			
-
-			var line = d3.line()
-			.x(function(d){ return x(d.month); })
-			.y(function(d){ return y(d.temp); })
-			.curve(d3.curveCardinal);
-
-/*			var z = d3.scaleLinear()
-			.domain([1,12])
-			.range([gheight,0]);
-			var zAxis = d3.axisBottom(z);
-
-			var line_2 = d3.line()
-			.x(function(d){ return x(d.month); })
-			.y(function(d){ return y(d.temp); })
-			.curve(d3.curveCardinal);*/
-
-
-			var svgTemp = d3.select("#my_dataviz_line_temp").append("svg")
-			.attr("id","svgTemp")
-			.attr("height",gheight+40).attr("width",gwidth);
-
-			var chartGroup = svgTemp.append("g").attr("class","chartGroup")
-			.attr("id","svgTemp")
-			.attr("height",gheight-gheight/2).attr("width",gwidth/3)
-			.attr("transform","translate("+(30)+","+(+10)+")");
-
-			// var chartGroup = svgTemp.append("g").attr("class","chartGroup");
-
-
-			chartGroup.append("path")
-			.attr("class","line")
-			.attr("d",function(d){ return line(tableau); });
-
-/*			chartGroup.append("path")
-			.attr("class","line_2")
-			.attr("d",function(d){ return line(tableau); });*/
-
-
-			chartGroup.append("g")
-			.attr("class","axisx")
-			.attr("transform","translate("+(0)+","+(gheight)+")")
-			.call(xAxis)
-			.append("text")
-				//.attr("transform", "rotate(-90)")
-				.attr("y", -105)
-				.attr("x", 70)
-				// .attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.text("Temperature (ºc)");;
-
-			chartGroup.append("g")
-			.attr("class","axisy")
-			.attr("transform","translate("+(0)+","+(0)+")")
-			.call(yAxis)
-			.append("text")
-				//.attr("transform", "rotate(-90)")
-				.attr("y", 130)
-				.attr("x", 150)
-				// .attr("dy", ".71em")
-				.style("text-anchor", "end")
-				.text("mois de l'année");
-
-		});
-/*https://bl.ocks.org/uredkar/71c3a0d93cc05527c83cdc12f9549ab3*/
-		d3.csv("./data/south_mean_extent.csv")
-		.row(function(d) 
-			{ return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
-		.get(function(error, rows) {
-
-			tableau = []
-			rows.forEach(function(element) {
-				if(element.year == dateActuelle){
-					tableau.push(element)
-				}
-			});
-
-			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
-			var gheight = gwidth / 3;
-
-			//cs(gwidth);
-			//cs(gheight);
-
-			var y = d3.scaleLinear()
-			.domain([1,12])
-			.range([gheight,0]);
-			var zAxis = d3.axisBottom(y);
-
-			var x = d3.scaleLinear()
-			.domain([1,12])
-			//.domain([minDate,maxDate])
-			.range([1,gwidth-gwidth/5]);
-
-
-			var zAxis = d3.axisLeft(y);
-
-			var xAxis = d3.axisBottom(x);
-
-			var line_2 = d3.line()
-			.x(function(d){ return x(d.month); })
-			.y(function(d){ return y(d.temp); })
-			.curve(d3.curveCardinal);
-
-			var chartGroup = svgTemp.append("g").attr("class","chartGroup")
-			.attr("id","svgTemp")
-			.attr("height",gheight-gheight/2).attr("width",gwidth/3)
-			.attr("transform","translate("+(30)+","+(+10)+")");
-
-			chartGroup.append("path")
-			.attr("class","line_2")
-			.attr("d",function(d){ return line(tableau); });
-
-
-			
+				.text("Extension");
+	  });
 	});
 }
 
