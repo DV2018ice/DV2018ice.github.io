@@ -41,7 +41,8 @@ function divAnnee(dateActuelle, pageX, pageY){
 			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
 			var gheight = gwidth / 3;
 
-			cs(gwidth);cs(gheight);
+			//cs(gwidth);
+			//cs(gheight);
 
 			var y = d3.scaleLinear()
 			.domain([17,0])
@@ -147,7 +148,8 @@ function getTemp(dateActuelle, donnee){
 			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
 			var gheight = gwidth / 3;
 
-			cs(gwidth);cs(gheight);
+			//cs(gwidth);
+			//cs(gheight);
 
 			var y = d3.scaleLinear()
 			.domain([minTemp,maxTemp])
@@ -243,7 +245,8 @@ function getTemp(dateActuelle, donnee){
 			var gwidth = document.getElementById("my_dataviz_line_extent").clientWidth;
 			var gheight = gwidth / 3;
 
-			cs(gwidth);cs(gheight);
+			//cs(gwidth);
+			//cs(gheight);
 
 			var y = d3.scaleLinear()
 			.domain([1,12])
@@ -280,9 +283,16 @@ function getTemp(dateActuelle, donnee){
 }
 
 function displayFrance(here){
+
 	var ref = 19;
-	var dat = 0;
-	dat = here.mean_extent;
+
+	var fichier = "./data/north_mean_extent_year.csv";
+		d3.csv(fichier)
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), extent: parseInt(d.mean_extent)}; })
+		.get(function(error, rows) {
+			var dat = d3.max(rows, function(d) { if(d.year == here.Year){ return d.extent; } })
+
 	var franceSQ = 643801 ;
 	//Les extents sont en 10^6 km²
 	var percentSQ = Math.round(dat*1000000/franceSQ);
@@ -328,13 +338,23 @@ function displayFrance(here){
 		.attr("height", "25");
 	}	
 	}
-
+});
 }
 
 function displayFrance_South(here){
 	var ref = 18;
-	var dat = 0;
-	dat = here.mean_extent;
+
+	cs(here.Year)
+
+	var fichier = "./data/south_mean_extent_year.csv";
+		d3.csv(fichier)
+		.row(function(d) 
+			{ return { year: parseInt(d.Year), extent: d.mean_extent}; })
+		.get(function(error, rows) {
+			var dat = d3.max(rows, function(d) { if(d.year == here.Year){ return d.extent; } })
+
+	cs(dat)
+	//dat = here.mean_extent;
 	var franceSQ = 643801 ;
 	//Les extents sont en 10^6 km²
 	var percentSQ = Math.round(dat*1000000/franceSQ);
@@ -381,7 +401,7 @@ function displayFrance_South(here){
 		.attr("height", "25");
 	}	
 	}
-	
+	});
 }
 
 

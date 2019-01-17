@@ -38,10 +38,10 @@
 					<a class="nav-link" href="#">Présentation du projet<span class="sr-only">(current)</span></a>
 				</li> -->
 				<li class="nav-item">
-					<a class="nav-link"  href="#section1">Visualisation</a>
+					<a class="nav-link"  href="#section1">Présentation du projet</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link"  href="#section2">Déduction</a>
+					<a class="nav-link"  href="#section2">Visualisation</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link"  href="#section3">Déduction</a>
@@ -51,8 +51,7 @@
 	</nav>
 
 	<div id="section1" class="container-fluid">
-		<h1>Présentation du projet de data visualisation du groupe 0.</h1>
-		<h2>Etendue annuelle des calottes glaciaires, de 1979 à 2016</h2>
+		<h1>Présentation du projet de data visualisation du groupe 0</h1>
 		<p>
 			Le réchauffement climatique est un sujet bien connu, de nos jours.
 			<br>
@@ -105,7 +104,6 @@
 
 			<!-- COLONNE SUD -->
 			<div class="col-4" id="my_dataviz_line_temp">
-				<p align="center">Température</p>
 			</div>
 
 
@@ -122,8 +120,7 @@
 			<div class="col-1"></div>
 
 			<!-- COLONNE NORD -->
-			<div class="col-4" id="my_dataviz_line_extent">
-				<p align="center">Extension</p>
+			<div class="col-4" id="my_dataviz_south">
 			</div>
 
 			<!-- PADDING -->
@@ -133,7 +130,7 @@
 
 
 			<!-- COLONNE SUD -->
-			<div class="col-4" id="my_dataviz_south">
+			<div class="col-4" id="my_dataviz_line_extent">
 			</div>
 
 			<!-- PADDING -->
@@ -146,7 +143,7 @@
 
 
 	<div id="section3" class="container-fluid">
-		<h1>Conclusion.</h1>
+		<h1>Conclusion</h1>
 
 
 		<p>Nous pouvons conclure, d'après cette visualisation, que la température aux pôles n'a presque pas changé. Cependant, la surface de glace au pôle Nord diminue effectivement alors que celle du pôle Sud semble augmenter. La fonte des glaces ne semble donc s'appliquer qu'au pôle Nord et elle ne semble pas due à une augmentation de la température.</p>
@@ -248,7 +245,7 @@
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				getTemp(d.Year, "north");
 				displayFrance(d)
-				// displayFrance_South(d)
+				displayFrance_South(d)
 				// document.getElementById("title_extent").style.display='block';
 				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
 				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
@@ -350,7 +347,7 @@
 				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
 				getTemp(d.Year, "south");
 				// Ajout des map de france
-				//displayFrance(d)
+				displayFrance(d)
 				displayFrance_South(d)
 				d3.selectAll("#my_dataviz_line_temp > #svgTemp").remove(); 
 				d3.selectAll("#my_dataviz_line_extent > #svg").remove(); 
