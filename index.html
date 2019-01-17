@@ -242,8 +242,9 @@
 				)
 			.on("mouseover", function(d){
 				displayTooltip(this);
-				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-				getTemp(d.Year, "north");
+				//divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
+				//getTemp(d.Year, "north");
+				displayLineChart()
 				displayFrance(d)
 				displayFrance_South(d)
 				// document.getElementById("title_extent").style.display='block';
@@ -344,8 +345,9 @@
 				displayTooltip(this);
 
 				//divAnneeTest(d.Year);
-				divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
-				getTemp(d.Year, "south");
+				// divAnnee(d.Year, (d3.event.pageX), (d3.event.pageY - 28));
+				// getTemp(d.Year, "south");
+				displayLineChart()
 				// Ajout des map de france
 				displayFrance(d)
 				displayFrance_South(d)

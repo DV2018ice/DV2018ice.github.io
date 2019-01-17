@@ -90,7 +90,6 @@ d3.csv("./data/north_mean_extent.csv")
       });
     //if (error1) throw error;
     
-
     cs(tableau_temp)
     cs(tableau_extent)
 
@@ -104,10 +103,6 @@ d3.csv("./data/north_mean_extent.csv")
         d.month = d.month;
         d.mean_extent = +d.mean_extent;
     });
-
-
-
-
 
     // Scale the range of the data
     x.domain(d3.extent(tableau_temp, function(d) { return d.month; }));
