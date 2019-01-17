@@ -1,4 +1,4 @@
-# DV2018ice.github.io
+﻿# DV2018ice.github.io
 # Projet Data Viz
 # Evolution de l'étendue des calottes polaires de 1979 à 2016 
 
@@ -9,7 +9,7 @@
 
 # Description du projet
 
-Nous proposons une visualisation de la variation anuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar chart circulaires qui représentent l'étendue anuelle pour chaque calotte. Lorsque l'on sélectionne une des barres(donc une des année) on obtient 4 nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les 2 pôles.
+Nous proposons une visualisation de la variation annuelle de l'étendue des calottes polaires Nord et Sud. Elle consiste en deux bar charts circulaires qui représentent l'étendue annuelle pour chaque calotte. Lorsqu'on sélectionne une des barres (donc une année), on obtient 4 nouveaux graphiques : l'évolution mensuelle de la température et l'évolution mensuelle de l'étendue glaciaire au cours de cette année pour les 2 pôles.
 
 
 # Sources
