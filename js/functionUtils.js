@@ -181,11 +181,12 @@ function displayLineChart(annee, position){
 		        .attr("d", valueline2);
 
 		    // Add the X Axis
+			xdata = ["","jan","fév","mar","avr","mai","juin","juil","aout","sep","oct","nov","dec"]
 		    svg_south_Line.append("g")
 		        .attr("transform", "translate(0," + height + ")")
 		        .attr("class", "axisx")
 		        .style("font", "14px times")
-		        .call(d3.axisBottom(x))
+		        .call(d3.axisBottom(x).tickFormat(function (d) {return xdata[d];}))
 		        .append("text")
 		        	.attr("class", "textY1")
 					.attr("y", 25)
