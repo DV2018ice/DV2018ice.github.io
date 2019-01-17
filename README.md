@@ -1,4 +1,4 @@
-﻿# DV2018ice.github.io
+﻿# Yearly-Ice-Extent.github.io
 # Projet Data Visualization
 # Evolution de l'étendue des calottes polaires de 1979 à 2016 
 # Yearly Ice Extent from 1979 to 2016
