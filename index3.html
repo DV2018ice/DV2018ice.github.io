@@ -25,8 +25,9 @@
 
 <!-- load the d3.js library -->    	
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
 
+<script>
+var cs = function(x){ console.log(x)};
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 40, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
@@ -36,19 +37,19 @@ var margin = {top: 20, right: 40, bottom: 30, left: 50},
 var parseTime = d3.timeParse("%d-%b-%y");
 
 // set the ranges
-var x = d3.scaleTime().range([1, 12]);
-var y0 = d3.scaleLinear().range([-100, 0]);
-var y1 = d3.scaleLinear().range([0, 17]);
+var x = d3.scaleTime().domain([1,12]).range([0, width]);
+var y0 = d3.scaleLinear().domain([-50,0]).range([height, 0]);
+var y1 = d3.scaleLinear().domain([1,17]).range([height, 0]);
 
 // define the 1st line
 var valueline = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y0(d.close); });
+    .x(function(d) { return x(d.month); })
+    .y(function(d) { return y0(d.temp); });
 
 // define the 2nd line
 var valueline2 = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y1(d.open); });
+    .x(function(d) { return x(d.month); })
+    .y(function(d) { return y1(d.mean_extent); });
   
 
 // append the svg obgect to the body of the page
@@ -61,40 +62,67 @@ var svg = d3.select("body").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("./data/north_mean_extent.csv", function(error, data) {
-//d3.csv("./data/data4.csv", function(error, data) {
-  if (error) throw error;
+d3.csv("./data/north_mean_extent.csv")
+    .row(function(d) 
+      { return { year: parseInt(d.Year), month: parseInt(d.Month), mean_extent: Number(d.mean_extent.trim())}; })
+    .get(function(error, extent) {
 
-  d3.csv("./data/ArcticTemp.csv", function(error1, data1) {
-  //d3.csv("./data/data4.csv", function(error, data) {
-    if (error1) throw error;
+
+
+  d3.csv("./data/ArcticTemp.csv")
+  .row(function(d) 
+      { return { year: parseInt(d.Year), month: parseInt(d.Month), temp: Number(d.Temperature.trim())}; })
+    .get(function(error, temp) {
+
+      tableau_temp = []
+      tableau_extent = []
+      temp.forEach(function(element) {
+        if(element.year == "2000"){
+          tableau_temp.push(element)
+        }
+      });
+
+
+      extent.forEach(function(element) {
+        if(element.year == "2000"){
+          tableau_extent.push(element)
+        }
+      });
+    //if (error1) throw error;
     
 
+    cs(tableau_temp)
+    cs(tableau_extent)
 
     // format the data
-    data.forEach(function(d) {
-        d.date = parseTime(d.date);
-        d.close = +d.close;
-        d.open = +d.open;
+    tableau_temp.forEach(function(d) {
+        d.month = d.month;
+        d.temp = +d.temp;
+    });
+
+    tableau_extent.forEach(function(d) {
+        d.month = d.month;
+        d.mean_extent = +d.mean_extent;
     });
 
 
 
 
+
     // Scale the range of the data
-    x.domain(d3.extent(data, function(d) { return d.date; }));
-    y0.domain([0, d3.max(data, function(d) {return Math.max(d.close);})]);
-    y1.domain([0, d3.max(data, function(d) {return Math.max(d.open); })]);
+    x.domain(d3.extent(tableau_temp, function(d) { return d.month; }));
+    y0.domain([0, d3.max(tableau_temp, function(d) {return Math.max(d.temp);})]);
+    y1.domain([0, d3.max(tableau_extent, function(d) {return Math.max(d.mean_extent); })]);
 
     // Add the valueline path.
     svg.append("path")
-        .data([data])
+        .data([tableau_temp])
         .attr("class", "line")
         .attr("d", valueline);
 
     // Add the valueline2 path.
     svg.append("path")
-        .data([data])
+        .data([tableau_extent])
         .attr("class", "line")
         .style("stroke", "red")
         .attr("d", valueline2);
